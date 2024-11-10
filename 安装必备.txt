@@ -1,0 +1,8 @@
+sudo apt update
+sudo apt-get install libaio-dev
+sudo apt-get install libaio1t64
+
+问题:
+dlopen failed: /lib/x86_64-linux-gnu/liburing.so.2: version `LIBURING_2.2' not found (required by libatx.so)
+解决:
+sudo rm /lib/x86_64-linux-gnu/liburing.so.2

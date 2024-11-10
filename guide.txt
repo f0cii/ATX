@@ -1,0 +1,49 @@
+./start.sh
+
+magic add --pypi uvicorn
+magic add gradio
+
+需要安装的组件:
+pip install -U blacksheep -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -U uvicorn -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -U urllib3 -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -U toml -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -U ujson -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+conda create -n py3_12 python=3.12
+conda activate py3_12
+
+pip install -U reflex -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+
+https://github.com/n4rk0o/reflex-dashboard
+https://github.com/reflex-dev/dashboard-template
+
+不错，配色改了，很不错
+https://github.com/hato0501/reflex-dashboard
+
+不错的配置
+https://github.com/tsdaemon/craftai
+
+
+https://github.com/leandrorojas/galadriel.git
+
+@rx.cached_var
+->
+@rx.var(cache=True)
+
+登录,界面做的不错
+C:\workspace\reflex-dev\Login\Login\Login.py
+
+sqlalchemy.url = postgresql://postgres:6V95R9cnMG1N2ELH@1.94.26.93:5432/reflex_db
+
+pip install alembic
+
+首页不错的
+https://hyinsta.reflex.run/
+
+
+web-dmemo
+https://github.com/Jackiexiao/reflex-web-template
+

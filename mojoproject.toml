@@ -1,0 +1,21 @@
+[project]
+authors = ["yl <2201441955@qq.com>"]
+channels = ["conda-forge", "https://conda.modular.com/max-nightly"]
+description = "echo"
+name = "echo"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+max = "*"
+python = "*"
+fastapi = ">=0.115.2,<0.116"
+uvicorn = ">=0.32.0,<0.33"
+orjson = ">=3.10.7,<4"
+sortedcontainers = ">=2.4.0,<3"
+aiohttp = ">=3.10.10,<4"
+multidict = ">=6.1.0,<7"
+yarl = ">=1.15.5,<2"
+httpx = ">=0.27.2,<0.28"

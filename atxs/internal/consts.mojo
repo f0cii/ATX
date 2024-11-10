@@ -1,0 +1,42 @@
+@value
+@register_passable("trivial")
+struct Verb:
+    var _value: UInt
+
+    alias UNKNOWN = Verb(0)
+    alias DELETE = Verb(1)
+    alias GET = Verb(2)
+    alias HEAD = Verb(3)
+    alias POST = Verb(4)
+    alias PUT = Verb(5)
+    alias CONNECT = Verb(6)
+    alias OPTIONS = Verb(7)
+    alias TRACE = Verb(8)
+    alias COPY = Verb(9)
+    alias LOCK = Verb(10)
+    alias MKCOL = Verb(11)
+    alias MOV = Verb(12)
+    alias PROPFIND = Verb(13)
+    alias PROPPATCH = Verb(14)
+    alias SEARCH = Verb(15)
+    alias UNLOCK = Verb(16)
+    alias BIND = Verb(17)
+    alias REBIND = Verb(18)
+    alias UNBIND = Verb(19)
+    alias ACL = Verb(20)
+    alias REPORT = Verb(21)
+    alias MKACTIVITY = Verb(22)
+    alias CHECKOUT = Verb(23)
+    alias MERGE = Verb(24)
+    alias MSEARCH = Verb(25)
+    alias NOTIFY = Verb(26)
+    alias SUBSCRIBE = Verb(27)
+    alias UNSUBSCRIBE = Verb(28)
+    alias PATCH = Verb(29)
+    alias PURGE = Verb(30)
+    alias MKCALENDAR = Verb(31)
+    alias LINK = Verb(32)
+    alias UNLINK = Verb(33)
+
+    fn __eq__(self, other: Verb) -> Bool:
+        return self._value == other._value
