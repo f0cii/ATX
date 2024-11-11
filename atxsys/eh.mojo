@@ -30,6 +30,11 @@ alias OnMessageCallback = fn (
     c_void_ptr, c_char_ptr, c_size_t
 ) raises -> None
 
+
+alias fn_seq_voidptr_to_int = fn (c_void_ptr) -> Int
+alias fn_seq_int_to_voidptr = fn (Int) -> c_void_ptr
+alias fn_seq_init_log = fn (UInt8, UnsafePointer[c_char], c_int) -> None
+
 var _eh = _EH()
 
 

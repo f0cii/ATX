@@ -1,6 +1,7 @@
 from memory import memcpy, memset_zero, UnsafePointer
 from sys.ffi import external_call
 from sys.ffi import c_char, c_size_t, c_long
+from utils import StringRef
 
 
 fn strlen(s: UnsafePointer[c_char]) -> c_size_t:
@@ -34,24 +35,16 @@ fn c_str_to_string(s: UnsafePointer[UInt8], n: Int) -> String:
     var ptr = UnsafePointer[UInt8]().alloc(size)
     memset_zero(ptr.offset(n), 1)
     memcpy(ptr, s, n)
-    return String(ptr, size)
-
-
-fn c_str_to_string(s: UnsafePointer[c_char], n: Int) -> String:
-    var size = n + 1
-    var ptr = UnsafePointer[Int8]().alloc(size)
-    memset_zero(ptr.offset(n), 1)
-    memcpy(ptr, s, n)
-    return String(ptr.bitcast[UInt8](), size)
+    return String(ptr=ptr, length=size)
 
 
 fn c_str_to_string_view(s: UnsafePointer[c_uchar]) -> String:
-    return String(s, strlen(s))
+    return String(ptr=s, length=strlen(s))
 
 
 fn c_str_to_string_view(s: UnsafePointer[c_char]) -> String:
-    return String(s.bitcast[UInt8](), strlen(s))
+    return String(StringRef(s, strlen(s)))
 
 
 fn c_str_to_string_view(s: UnsafePointer[UInt8], n: Int) -> String:
-    return String(s, n)
+    return String(StringRef(s, n))
