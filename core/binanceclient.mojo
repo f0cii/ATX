@@ -1,19 +1,16 @@
-from atxsys import *
+from atxs_classic import *
 from .binancemodel import (
     OrderInfo,
 )
-from base.time_util import now_ns, now_ms
-from atxsys.httpclient import (
+from atxs import now_ms, now_ns
+from atxs_classic.httpclient import (
     HttpClient,
     Headers,
     HttpResponse,
     tlsv13_client,
     QueryParams,
 )
-from atxsys.hmac import hmac_sha256_hex
-
-# from atxsys.sj_dom import DomParser
-# from atxsys.sj_ondemand import OndemandParser
+from atxs_classic.hmac import hmac_sha256_hex
 from sonic import *
 
 

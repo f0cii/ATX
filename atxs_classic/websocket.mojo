@@ -1,8 +1,8 @@
 from memory import UnsafePointer
 from sys.ffi import _get_global
-from .ssmap import SSMap
 from collections.dict import Dict
 from utils.stringref import StringRef
+from .ssmap import SSMap
 
 
 alias TLS1_1_VERSION = 0x0302

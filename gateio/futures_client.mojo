@@ -2,9 +2,9 @@ import time
 import hashlib
 from collections import Optional
 from python import Python, PythonObject
-from base.time_util import now_ms, now_ns
-from atxsys import *
-from atxsys.httpclient import (
+from atxs import now_ms, now_ns
+from atxs_classic import *
+from atxs_classic.httpclient import (
     HttpClient,
     Headers,
     QueryParams,

@@ -1,5 +1,5 @@
-from atxsys.c import *
-from atxsys.websocket import (
+from atxs_classic.c import *
+from atxs_classic.websocket import (
     register_websocket,
     TLS1_3_VERSION,
     on_connected_callback,
@@ -9,10 +9,9 @@ from atxsys.websocket import (
     set_on_heartbeat,
     set_on_message,
 )
-from atxsys import *
-from atxsys.yyjson import yyjson_doc, yyjson_mut_doc
-from atxsys.hmac import hmac_sha256_hex
-from base.time_util import now_ns, now_ms
+from atxs_classic import *
+from atxs_classic.hmac import hmac_sha256_hex
+from atxs import now_ms, now_ns
 from sonic import *
 
 

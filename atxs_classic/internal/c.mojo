@@ -43,8 +43,8 @@ fn c_str_to_string_view(s: UnsafePointer[c_uchar]) -> String:
 
 
 fn c_str_to_string_view(s: UnsafePointer[c_char]) -> String:
-    return String(StringRef(s, strlen(s)))
+    return String(ptr=s, length=strlen(s))
 
 
 fn c_str_to_string_view(s: UnsafePointer[UInt8], n: Int) -> String:
-    return String(StringRef(s, n))
+    return String(ptr=s, length=n)

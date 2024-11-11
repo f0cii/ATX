@@ -1,6 +1,6 @@
 from memory import UnsafePointer
-from base.time_util import now_ms
-from atxsys.hmac import hmac_sha256_hex
+from atxs import now_ms, now_ns
+from atxs_classic.hmac import hmac_sha256_hex
 
 
 fn generate_nonce() -> Int:

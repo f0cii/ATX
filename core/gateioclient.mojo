@@ -1,9 +1,9 @@
 from collections.list import List
 from .models import PositionInfo
-from atxsys.hmac import hmac_sha256_hex
-from base.time_util import now_ms, now_ns
-from atxsys.httpclient import HttpClient, tlsv13_client, Headers, QueryParams, HttpResponse
-from atxsys.log import logd
+from atxs_classic.hmac import hmac_sha256_hex
+from atxs import now_ms, now_ns
+from atxs_classic.httpclient import HttpClient, tlsv13_client, Headers, QueryParams, HttpResponse
+from atxs_classic.log import logd
 from .bybitmodel import ServerTime
 from sonic import *
 

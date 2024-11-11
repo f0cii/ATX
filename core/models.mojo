@@ -1,4 +1,4 @@
-from atxsys.fixed import Fixed
+from atxs_classic.fixed import Fixed
 
 
 @value

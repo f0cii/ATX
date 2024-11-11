@@ -2,7 +2,7 @@ import sys
 import time
 from testing import assert_equal
 
-from atxsys import *
+from atxs_classic import *
 from gateio_ws import Configuration, Connection, WebSocketResponse, BaseChannel
 
 from sonic import *

@@ -1,6 +1,6 @@
 from memory import UnsafePointer
-from base.time_util import now_ms
-from atxsys.websocket import (
+from atxs import now_ms, now_ns
+from atxs_classic.websocket import (
     on_connected_callback,
     on_heartbeat_callback,
     on_message_callback,
@@ -11,8 +11,7 @@ from atxsys.websocket import (
     set_on_message,
 )
 from .binanceclient import BinanceClient
-from atxsys import *
-from atxsys.eh import *
+from atxs_classic import *
 
 
 struct BinanceWS:

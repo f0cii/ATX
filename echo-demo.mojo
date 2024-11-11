@@ -7,10 +7,10 @@ from sha import sha256_encode
 from testing import assert_equal
 from time import now
 from collections.vector import InlinedFixedVector
-from atxsys import *
-from atxsys.orderbook import Orderbook
-from atxsys.httpclient import HttpClient, Headers, VERB_GET
-from atxsys.websocket import (
+from atxs_classic import *
+from atxs_classic.orderbook import Orderbook
+from atxs_classic.httpclient import HttpClient, Headers, VERB_GET
+from atxs_classic.websocket import (
     WebSocket,
     set_on_connected,
     set_on_before_reconnect,
@@ -21,7 +21,7 @@ from bitmex.bitmex_client import tset_bitmex_api
 from gateio.futures_client import GateIOFuturesClient
 
 from collections import Dict
-from base.time_util import now_ns, now_ms
+from atxs import now_ms, now_ns
 from sonic import *
 
 

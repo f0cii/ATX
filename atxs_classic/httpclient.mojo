@@ -1,6 +1,5 @@
 from collections import Dict
 from collections.optional import Optional
-from .c import *
 from .ssmap import SSMap
 from .log import *
 

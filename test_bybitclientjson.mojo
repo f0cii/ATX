@@ -1,6 +1,6 @@
 from testing import assert_equal, assert_true
-from atxsys import *
-from atxsys.httpclient import *
+from atxs_classic import *
+from atxs_classic.httpclient import *
 
 from core.bybitmodel import (
     ServerTime,
@@ -12,7 +12,7 @@ from core.bybitmodel import (
     BalanceInfo,
     OrderInfo,
 )
-from base.time_util import now_ns
+from atxs import now_ms, now_ns
 from sonic import *
 
 

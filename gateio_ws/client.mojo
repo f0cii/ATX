@@ -3,10 +3,10 @@ import time
 
 # from python import Python
 from memory import UnsafePointer
-from atxsys import *
-from base.time_util import now_ms
+from atxs_classic import *
+from atxs import *
 from collections import Dict
-from atxsys.websocket import (
+from atxs_classic.websocket import (
     register_websocket,
     TLS1_3_VERSION,
     on_connected_callback,

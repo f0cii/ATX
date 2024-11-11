@@ -1,7 +1,7 @@
 from memory import UnsafePointer
 from builtin._location import __call_location
 from sys.ffi import c_char, c_int
-from .c import *
+from .internal.ffi import *
 
 
 alias LOG_LEVEL_DBG = 0

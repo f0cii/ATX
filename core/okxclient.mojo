@@ -1,4 +1,4 @@
-from atxsys.httpclient import (
+from atxs_classic.httpclient import (
     HttpClient,
     HttpResponse,
     seq_hmac_sha256,
@@ -7,7 +7,7 @@ from atxsys.httpclient import (
     Headers,
 )
 
-from atxsys.c import *
+from atxs_classic.c import *
 import .okxconsts as c
 from .okxconsts import GET, POST
 

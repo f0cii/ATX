@@ -2,11 +2,11 @@ from sys import external_call
 from sys.ffi import DLHandle
 
 
-var _sjdom = _SJDOMWrapper()
+var __wrapper = _DLWrapper()
 
 
 @value
-struct _SJDOMWrapper:
+struct _DLWrapper:
     var _handle: DLHandle
 
     var _seq_simdjson_dom_parser_new: DL_Fn[
@@ -326,36 +326,36 @@ struct _SJDOMWrapper:
 
 @always_inline
 fn seq_simdjson_dom_parser_new(max_capacity: Int) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_parser_new.call(max_capacity)
+    return __wrapper._seq_simdjson_dom_parser_new.call(max_capacity)
 
 
 @always_inline
 fn seq_simdjson_dom_parser_free(parser: c_void_ptr) -> None:
-    return _sjdom._seq_simdjson_dom_parser_free.call(parser)
+    return __wrapper._seq_simdjson_dom_parser_free.call(parser)
 
 
 @always_inline
 fn seq_simdjson_dom_parser_parse(
     parser: c_void_ptr, s: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_parser_parse.call(parser, s, len)
+    return __wrapper._seq_simdjson_dom_parser_parse.call(parser, s, len)
 
 
 @always_inline
 fn seq_simdjson_dom_element_is_valid(p: c_void_ptr) -> Bool:
-    return _sjdom._seq_simdjson_dom_element_is_valid.call(p)
+    return __wrapper._seq_simdjson_dom_element_is_valid.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_element_free(p: c_void_ptr) -> None:
-    return _sjdom._seq_simdjson_dom_element_free.call(p)
+    return __wrapper._seq_simdjson_dom_element_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_document_get_element(
     document: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_document_get_element.call(
+    return __wrapper._seq_simdjson_dom_document_get_element.call(
         document, key, len
     )
 
@@ -364,141 +364,141 @@ fn seq_simdjson_dom_document_get_element(
 fn seq_simdjson_dom_element_get_int(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Int:
-    return _sjdom._seq_simdjson_dom_element_get_int.call(p, key, len)
+    return __wrapper._seq_simdjson_dom_element_get_int.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_element_get_uint(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Int:
-    return _sjdom._seq_simdjson_dom_element_get_uint.call(p, key, len)
+    return __wrapper._seq_simdjson_dom_element_get_uint.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_element_get_float(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Float64:
-    return _sjdom._seq_simdjson_dom_element_get_float.call(p, key, len)
+    return __wrapper._seq_simdjson_dom_element_get_float.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_element_get_bool(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Bool:
-    return _sjdom._seq_simdjson_dom_element_get_bool.call(p, key, len)
+    return __wrapper._seq_simdjson_dom_element_get_bool.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_object_get_int(
     dom: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Int:
-    return _sjdom._seq_simdjson_dom_object_get_int.call(dom, key, len)
+    return __wrapper._seq_simdjson_dom_object_get_int.call(dom, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_object_get_uint(
     dom: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Int:
-    return _sjdom._seq_simdjson_dom_object_get_uint.call(dom, key, len)
+    return __wrapper._seq_simdjson_dom_object_get_uint.call(dom, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_object_get_float(
     dom: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Float64:
-    return _sjdom._seq_simdjson_dom_object_get_float.call(dom, key, len)
+    return __wrapper._seq_simdjson_dom_object_get_float.call(dom, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_object_get_bool(
     dom: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Bool:
-    return _sjdom._seq_simdjson_dom_object_get_bool.call(dom, key, len)
+    return __wrapper._seq_simdjson_dom_object_get_bool.call(dom, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_element_get_object(
     element: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_element_get_object.call(element, key, len)
+    return __wrapper._seq_simdjson_dom_element_get_object.call(element, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_element_get_array(
     element: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_element_get_array.call(element, key, len)
+    return __wrapper._seq_simdjson_dom_element_get_array.call(element, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_object_get_object(
     obj: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_object_get_object.call(obj, key, len)
+    return __wrapper._seq_simdjson_dom_object_get_object.call(obj, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_object_get_array(
     obj: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_object_get_array.call(obj, key, len)
+    return __wrapper._seq_simdjson_dom_object_get_array.call(obj, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_element_int(p: c_void_ptr) -> Int:
-    return _sjdom._seq_simdjson_dom_element_int.call(p)
+    return __wrapper._seq_simdjson_dom_element_int.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_element_uint(p: c_void_ptr) -> Int:
-    return _sjdom._seq_simdjson_dom_element_uint.call(p)
+    return __wrapper._seq_simdjson_dom_element_uint.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_element_float(p: c_void_ptr) -> Float64:
-    return _sjdom._seq_simdjson_dom_element_float.call(p)
+    return __wrapper._seq_simdjson_dom_element_float.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_element_bool(p: c_void_ptr) -> Bool:
-    return _sjdom._seq_simdjson_dom_element_bool.call(p)
+    return __wrapper._seq_simdjson_dom_element_bool.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_object_free(p: c_void_ptr) -> None:
-    return _sjdom._seq_simdjson_dom_object_free.call(p)
+    return __wrapper._seq_simdjson_dom_object_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_array_free(p: c_void_ptr) -> None:
-    return _sjdom._seq_simdjson_dom_array_free.call(p)
+    return __wrapper._seq_simdjson_dom_array_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_free(p: c_void_ptr) -> None:
-    return _sjdom._seq_simdjson_dom_array_iter_free.call(p)
+    return __wrapper._seq_simdjson_dom_array_iter_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_element_str(
     p: c_void_ptr, n: UnsafePointer[c_size_t]
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_element_str.call(p, n)
+    return __wrapper._seq_simdjson_dom_element_str.call(p, n)
 
 
 @always_inline
 fn seq_simdjson_dom_element_type(p: c_void_ptr) -> Int:
-    return _sjdom._seq_simdjson_dom_element_type.call(p)
+    return __wrapper._seq_simdjson_dom_element_type.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_element_object(p: c_void_ptr) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_element_object.call(p)
+    return __wrapper._seq_simdjson_dom_element_object.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_element_array(p: c_void_ptr) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_element_array.call(p)
+    return __wrapper._seq_simdjson_dom_element_array.call(p)
 
 
 @always_inline
@@ -508,7 +508,7 @@ fn seq_simdjson_dom_element_get_str(
     len: c_size_t,
     n: UnsafePointer[c_size_t],
 ) -> c_char_ptr:
-    return _sjdom._seq_simdjson_dom_element_get_str.call(p, key, len, n)
+    return __wrapper._seq_simdjson_dom_element_get_str.call(p, key, len, n)
 
 
 @always_inline
@@ -518,130 +518,130 @@ fn seq_simdjson_dom_object_get_str(
     len: c_size_t,
     n: UnsafePointer[c_size_t],
 ) -> c_char_ptr:
-    return _sjdom._seq_simdjson_dom_object_get_str.call(p, key, len, n)
+    return __wrapper._seq_simdjson_dom_object_get_str.call(p, key, len, n)
 
 
 @always_inline
 fn seq_simdjson_dom_array_begin(p: c_void_ptr) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_begin.call(p)
+    return __wrapper._seq_simdjson_dom_array_begin.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_array_end(p: c_void_ptr) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_end.call(p)
+    return __wrapper._seq_simdjson_dom_array_end.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_array_size(p: c_void_ptr) -> Int:
-    return _sjdom._seq_simdjson_dom_array_size.call(p)
+    return __wrapper._seq_simdjson_dom_array_size.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_array_number_of_slots(p: c_void_ptr) -> Int:
-    return _sjdom._seq_simdjson_dom_array_number_of_slots.call(p)
+    return __wrapper._seq_simdjson_dom_array_number_of_slots.call(p)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at(p: c_void_ptr, index: c_size_t) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_at.call(p, index)
+    return __wrapper._seq_simdjson_dom_array_at.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_int(p: c_void_ptr, index: c_size_t) -> Int:
-    return _sjdom._seq_simdjson_dom_array_at_int.call(p, index)
+    return __wrapper._seq_simdjson_dom_array_at_int.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_uint(p: c_void_ptr, index: c_size_t) -> Int:
-    return _sjdom._seq_simdjson_dom_array_at_uint.call(p, index)
+    return __wrapper._seq_simdjson_dom_array_at_uint.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_float(p: c_void_ptr, index: c_size_t) -> Float64:
-    return _sjdom._seq_simdjson_dom_array_at_float.call(p, index)
+    return __wrapper._seq_simdjson_dom_array_at_float.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_bool(p: c_void_ptr, index: c_size_t) -> Bool:
-    return _sjdom._seq_simdjson_dom_array_at_bool.call(p, index)
+    return __wrapper._seq_simdjson_dom_array_at_bool.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_str(
     p: c_void_ptr, index: c_size_t, n: UnsafePointer[c_size_t]
 ) -> c_char_ptr:
-    return _sjdom._seq_simdjson_dom_array_at_str.call(p, index, n)
+    return __wrapper._seq_simdjson_dom_array_at_str.call(p, index, n)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_obj(p: c_void_ptr, index: c_size_t) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_at_obj.call(p, index)
+    return __wrapper._seq_simdjson_dom_array_at_obj.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_arr(p: c_void_ptr, index: c_size_t) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_at_arr.call(p, index)
+    return __wrapper._seq_simdjson_dom_array_at_arr.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_dom_array_at_pointer(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_at_pointer.call(p, key, len)
+    return __wrapper._seq_simdjson_dom_array_at_pointer.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get(it: c_void_ptr) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_iter_get.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_get.call(it)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get_int(it: c_void_ptr) -> Int:
-    return _sjdom._seq_simdjson_dom_array_iter_get_int.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_get_int.call(it)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get_uint(it: c_void_ptr) -> Int:
-    return _sjdom._seq_simdjson_dom_array_iter_get_uint.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_get_uint.call(it)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get_float(it: c_void_ptr) -> Float64:
-    return _sjdom._seq_simdjson_dom_array_iter_get_float.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_get_float.call(it)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get_bool(it: c_void_ptr) -> Bool:
-    return _sjdom._seq_simdjson_dom_array_iter_get_bool.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_get_bool.call(it)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get_str(
     it: c_void_ptr, n: UnsafePointer[c_size_t]
 ) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_iter_get_str.call(it, n)
+    return __wrapper._seq_simdjson_dom_array_iter_get_str.call(it, n)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get_obj(it: c_void_ptr) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_iter_get_obj.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_get_obj.call(it)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_get_arr(it: c_void_ptr) -> c_void_ptr:
-    return _sjdom._seq_simdjson_dom_array_iter_get_arr.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_get_arr.call(it)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_not_equal(
     lhs: c_void_ptr, rhs: c_void_ptr
 ) -> Bool:
-    return _sjdom._seq_simdjson_dom_array_iter_not_equal.call(lhs, rhs)
+    return __wrapper._seq_simdjson_dom_array_iter_not_equal.call(lhs, rhs)
 
 
 @always_inline
 fn seq_simdjson_dom_array_iter_step(it: c_void_ptr) -> None:
-    return _sjdom._seq_simdjson_dom_array_iter_step.call(it)
+    return __wrapper._seq_simdjson_dom_array_iter_step.call(it)
 
 
 @value

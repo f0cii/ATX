@@ -1,4 +1,7 @@
-# alias SHA512_DIGEST_LENGTH = 64
+from .internal.ffi import *
+
+
+alias SHA512_DIGEST_LENGTH = 64
 
 
 fn sha512_hex(text: String) -> String:

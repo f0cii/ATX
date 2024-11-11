@@ -1,8 +1,8 @@
 import sys
 from time import sleep
-from base.time_util import now_ms, now_ns
-from atxsys import *
-from atxsys.websocket import *
+from atxs import now_ms, now_ns
+from atxs_classic import *
+from atxs_classic.websocket import *
 from bitmex.api_key import generate_nonce, generate_signature
 from bitmex.subscriptions import NO_SYMBOL_SUBS, DEFAULT_SUBS
 from bitmex.bitmex_websocket import BitMEXWebsocket

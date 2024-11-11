@@ -1,11 +1,11 @@
 # https://github.com/GTXV/simple_bitmex_api/blob/main/example.py
 import hashlib
 import time
-from base.time_util import now_ms, now_ns
-from atxsys.httpclient import HttpClient, Headers
-from atxsys.hmac import hmac_sha256_hex
-from atxsys.sonic import SonicDocument
-from atxsys import *
+from atxs import now_ms, now_ns
+from atxs_classic.httpclient import HttpClient, Headers
+from atxs_classic.hmac import hmac_sha256_hex
+from atxs_classic.sonic import SonicDocument
+from atxs_classic import *
 
 
 alias METHOD_GET = "GET"

@@ -31,15 +31,11 @@ alias OnMessageCallback = fn (
 ) raises -> None
 
 
-alias fn_seq_voidptr_to_int = fn (c_void_ptr) -> Int
-alias fn_seq_int_to_voidptr = fn (Int) -> c_void_ptr
-alias fn_seq_init_log = fn (UInt8, UnsafePointer[c_char], c_int) -> None
-
-var _eh = _EH()
+var __wrapper = _DLWrapper()
 
 
 @value
-struct _EH:
+struct _DLWrapper:
     var _handle: DLHandle
 
     var _seq_voidptr_to_int: DL_Fn[
@@ -50,8 +46,8 @@ struct _EH:
         "seq_int_to_voidptr", fn (Int) -> c_void_ptr
     ]
 
-    var _seq_init_log: DL_Fn[
-        "seq_init_log", fn (UInt8, UnsafePointer[c_char], c_int) -> NoneType
+    var _seq_set_log_output_level: DL_Fn[
+        "seq_set_log_output_level", fn (UInt8, UnsafePointer[c_char], c_int) -> NoneType
     ]
     var _seq_logvd: DL_Fn[
         "seq_logvd", fn (UnsafePointer[c_char], c_int) -> NoneType
@@ -205,7 +201,7 @@ struct _EH:
         self._seq_voidptr_to_int = self._handle
         self._seq_int_to_voidptr = self._handle
 
-        self._seq_init_log = self._handle
+        self._seq_set_log_output_level = self._handle
         self._seq_logvd = self._handle
         self._seq_logvi = self._handle
         self._seq_logvw = self._handle
@@ -255,41 +251,41 @@ struct _EH:
 
 @always_inline
 fn seq_voidptr_to_int(p: c_void_ptr) -> Int:
-    return _eh._seq_voidptr_to_int.call(p)
+    return __wrapper._seq_voidptr_to_int.call(p)
 
 @always_inline
 fn seq_int_to_voidptr(i: Int) -> c_void_ptr:
-    return _eh._seq_int_to_voidptr.call(i)
+    return __wrapper._seq_int_to_voidptr.call(i)
 
 @always_inline
-fn seq_init_log(
-    level: UInt8, filename: UnsafePointer[c_char], filename_len: c_int
+fn seq_set_log_output_level(
+    level: UInt8
 ):
-    _eh._seq_init_log.call(level, filename, filename_len)
+    __wrapper._seq_set_log_output_level.call(level)
 
 @always_inline
 fn seq_logvd(s: UnsafePointer[c_char], length: c_int):
-    _eh._seq_logvd.call(s, length)
+    __wrapper._seq_logvd.call(s, length)
 
 @always_inline
 fn seq_logvi(s: UnsafePointer[c_char], length: c_int):
-    _eh._seq_logvi.call(s, length)
+    __wrapper._seq_logvi.call(s, length)
 
 @always_inline
 fn seq_logvw(s: UnsafePointer[c_char], length: c_int):
-    _eh._seq_logvw.call(s, length)
+    __wrapper._seq_logvw.call(s, length)
 
 @always_inline
 fn seq_logve(s: UnsafePointer[c_char], length: c_int):
-    _eh._seq_logve.call(s, length)
+    __wrapper._seq_logve.call(s, length)
 
 @always_inline
 fn seq_ssmap_new() -> c_void_ptr:
-    return _eh._seq_ssmap_new.call()
+    return __wrapper._seq_ssmap_new.call()
 
 @always_inline
 fn seq_ssmap_free(ptr: c_void_ptr) -> None:
-    _eh._seq_ssmap_free.call(ptr)
+    __wrapper._seq_ssmap_free.call(ptr)
 
 @always_inline
 fn seq_ssmap_set(
@@ -297,17 +293,17 @@ fn seq_ssmap_set(
     key: UnsafePointer[c_char],
     value: UnsafePointer[c_char],
 ) -> None:
-    _eh._seq_ssmap_set.call(ptr, key, value)
+    __wrapper._seq_ssmap_set.call(ptr, key, value)
 
 @always_inline
 fn seq_ssmap_get(
     ptr: c_void_ptr, key: UnsafePointer[c_char], n: UnsafePointer[c_size_t]
 ) -> c_char_ptr:
-    return _eh._seq_ssmap_get.call(ptr, key, n)
+    return __wrapper._seq_ssmap_get.call(ptr, key, n)
 
 @always_inline
 fn seq_ssmap_size(ptr: c_void_ptr) -> c_size_t:
-    return _eh._seq_ssmap_size.call(ptr)
+    return __wrapper._seq_ssmap_size.call(ptr)
 
 alias SHA512_DIGEST_LENGTH	=	64
 
@@ -317,7 +313,7 @@ fn seq_sha512(
     message_len: c_size_t,
     result: c_void_ptr,
 ) -> c_size_t:
-    return _eh._seq_sha512.call(
+    return __wrapper._seq_sha512.call(
         message, message_len, result
     )
 
@@ -330,7 +326,7 @@ fn seq_hmac_sha256(
     message_len: c_size_t,
     result: c_void_ptr,
 ) -> c_size_t:
-    return _eh._seq_hmac_sha256.call(
+    return __wrapper._seq_hmac_sha256.call(
         key, key_len, message, message_len, result
     )
 
@@ -342,7 +338,7 @@ fn seq_hmac_sha512(
     message_len: c_size_t,
     result: c_void_ptr,
 ) -> c_size_t:
-    return _eh._seq_hmac_sha512.call(
+    return __wrapper._seq_hmac_sha512.call(
         key, key_len, message, message_len, result
     )
 
@@ -350,15 +346,15 @@ fn seq_hmac_sha512(
 fn seq_hex_encode(
     input: c_void_ptr, n: c_size_t, result: c_void_ptr
 ) -> Int:
-    return _eh._seq_hex_encode.call(input, n, result)
+    return __wrapper._seq_hex_encode.call(input, n, result)
 
 @always_inline
 fn seq_ct_init() -> Int:
-    return _eh._seq_ct_init.call()
+    return __wrapper._seq_ct_init.call()
 
 @always_inline
 fn seq_photon_init_default() -> Int:
-    return _eh._seq_photon_init_default.call()
+    return __wrapper._seq_photon_init_default.call()
 
 @always_inline
 fn seq_cclient_new(
@@ -366,11 +362,11 @@ fn seq_cclient_new(
     base_url_len: Int,
     method: Int
 ) -> c_void_ptr:
-    return _eh._seq_cclient_new.call(base_url, base_url_len, method)
+    return __wrapper._seq_cclient_new.call(base_url, base_url_len, method)
 
 @always_inline
 fn seq_cclient_free(client: c_void_ptr) -> None:
-    _eh._seq_cclient_free.call(client)
+    __wrapper._seq_cclient_free.call(client)
 
 @always_inline
 fn seq_cclient_do_request(
@@ -386,49 +382,49 @@ fn seq_cclient_do_request(
     n: UnsafePointer[Int],
     verbose: Bool = False,
 ) -> Int:
-    return _eh._seq_cclient_do_request.call(
+    return __wrapper._seq_cclient_do_request.call(
         client, path, path_len, verb, headers, body, body_len, res, res_len, n, verbose
     )
 
 # @always_inline
 # fn seq_asio_ioc() -> c_void_ptr:
-#     return _eh._seq_asio_ioc.call()
+#     return __wrapper._seq_asio_ioc.call()
 
 # @always_inline
 # fn seq_asio_run(ioc: c_void_ptr) -> None:
-#     _eh._seq_asio_run.call(ioc)
+#     __wrapper._seq_asio_run.call(ioc)
 
 # @always_inline
 # fn seq_asio_run_ex(ioc: c_void_ptr, bind_cpu: c_int = -1, pool: Bool = False) -> None:
-#     _eh._seq_asio_run_ex.call(ioc, bind_cpu, pool)
+#     __wrapper._seq_asio_run_ex.call(ioc, bind_cpu, pool)
 
 # @always_inline
 # fn seq_asio_ioc_poll(ioc: c_void_ptr) -> None:
-#     _eh._seq_asio_ioc_poll.call(ioc)
+#     __wrapper._seq_asio_ioc_poll.call(ioc)
 
 @always_inline
 fn seq_websocket_set_on_connected(
     p: c_void_ptr, cb: OnConnectCallback
 ) -> None:
-    _eh._seq_websocket_set_on_connected.call(p, cb)
+    __wrapper._seq_websocket_set_on_connected.call(p, cb)
 
 @always_inline
 fn seq_websocket_set_on_before_reconnect(
     p: c_void_ptr, cb: OnBeforeReconnectCallback
 ) -> None:
-    _eh._seq_websocket_set_on_before_reconnect.call(p, cb)
+    __wrapper._seq_websocket_set_on_before_reconnect.call(p, cb)
 
 @always_inline
 fn seq_websocket_set_on_heartbeat(
     p: c_void_ptr, cb: OnHeartbeatCallback
 ) -> None:
-    _eh._seq_websocket_set_on_heartbeat.call(p, cb)
+    __wrapper._seq_websocket_set_on_heartbeat.call(p, cb)
 
 @always_inline
 fn seq_websocket_set_on_message(
     p: c_void_ptr, cb: OnMessageCallback
 ) -> None:
-    _eh._seq_websocket_set_on_message.call(p, cb)
+    __wrapper._seq_websocket_set_on_message.call(p, cb)
 
 @always_inline
 fn seq_websocket_new(
@@ -437,34 +433,34 @@ fn seq_websocket_new(
     path: c_char_ptr,
     tls_version: Int,
 ) -> c_void_ptr:
-    return _eh._seq_websocket_new.call(host, port, path, tls_version)
+    return __wrapper._seq_websocket_new.call(host, port, path, tls_version)
 
 @always_inline
 fn seq_websocket_delete(p: c_void_ptr) -> None:
-    _eh._seq_websocket_delete.call(p)
+    __wrapper._seq_websocket_delete.call(p)
 
 @always_inline
 fn seq_websocket_connect(p: c_void_ptr) -> None:
-    _eh._seq_websocket_connect.call(p)
+    __wrapper._seq_websocket_connect.call(p)
 
 @always_inline
 fn seq_websocket_set_headers(
     p: c_void_ptr, headers: c_void_ptr
 ) -> None:
-    _eh._seq_websocket_set_headers.call(p, headers)
+    __wrapper._seq_websocket_set_headers.call(p, headers)
 
 @always_inline
 fn seq_websocket_disconnect(p: c_void_ptr) -> None:
-    _eh._seq_websocket_disconnect.call(p)
+    __wrapper._seq_websocket_disconnect.call(p)
 
 @always_inline
 fn seq_websocket_send(
     p: c_void_ptr, text: c_char_ptr, len: c_size_t
 ) -> None:
-    _eh._seq_websocket_send.call(p, text, len)
+    __wrapper._seq_websocket_send.call(p, text, len)
 
 @always_inline
 fn seq_nanoid() -> String:
     var result = UnsafePointer[Int8].alloc(32)
-    var len = _eh._seq_nanoid.call(result)
+    var len = __wrapper._seq_nanoid.call(result)
     return String(result.bitcast[UInt8](), len + 1)

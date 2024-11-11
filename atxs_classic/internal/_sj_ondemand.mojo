@@ -2,11 +2,11 @@ from sys import external_call
 from sys.ffi import DLHandle
 
 
-var _sow = _SjOndemandWrapper()
+var __wrapper = _DLWrapper()
 
 
 @value
-struct _SjOndemandWrapper:
+struct _DLWrapper:
     var _handle: DLHandle
 
     var _seq_simdjson_ondemand_parser_new: DL_Fn[
@@ -391,19 +391,19 @@ struct _SjOndemandWrapper:
 
 @always_inline
 fn seq_simdjson_ondemand_parser_new(max_capacity: c_size_t) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_parser_new.call(max_capacity)
+    return __wrapper._seq_simdjson_ondemand_parser_new.call(max_capacity)
 
 
 @always_inline
 fn seq_simdjson_padded_string_new(s: c_char_ptr, len: c_size_t) -> c_void_ptr:
-    return _sow._seq_simdjson_padded_string_new.call(s, len)
+    return __wrapper._seq_simdjson_padded_string_new.call(s, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_parser_parse(
     parser: c_void_ptr, data: c_void_ptr
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_parser_parse.call(parser, data)
+    return __wrapper._seq_simdjson_ondemand_parser_parse.call(parser, data)
 
 
 @always_inline
@@ -413,7 +413,7 @@ fn seq_simdjson_ondemand_get_string_d(
     len: c_size_t,
     n: UnsafePointer[c_size_t],
 ) -> c_char_ptr:
-    return _sow._seq_simdjson_ondemand_get_string_d.call(p, key, len, n)
+    return __wrapper._seq_simdjson_ondemand_get_string_d.call(p, key, len, n)
 
 
 @always_inline
@@ -423,7 +423,7 @@ fn seq_simdjson_ondemand_get_string_v(
     len: c_size_t,
     n: UnsafePointer[c_size_t],
 ) -> c_char_ptr:
-    return _sow._seq_simdjson_ondemand_get_string_v.call(p, key, len, n)
+    return __wrapper._seq_simdjson_ondemand_get_string_v.call(p, key, len, n)
 
 
 @always_inline
@@ -433,354 +433,354 @@ fn seq_simdjson_ondemand_get_string_o(
     len: c_size_t,
     n: UnsafePointer[c_size_t],
 ) -> c_char_ptr:
-    return _sow._seq_simdjson_ondemand_get_string_o.call(p, key, len, n)
+    return __wrapper._seq_simdjson_ondemand_get_string_o.call(p, key, len, n)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_int_d(
     doc: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_long:
-    return _sow._seq_simdjson_ondemand_get_int_d.call(doc, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_int_d.call(doc, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_uint_d(
     doc: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_long:
-    return _sow._seq_simdjson_ondemand_get_uint_d.call(doc, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_uint_d.call(doc, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_float_d(
     doc: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_double:
-    return _sow._seq_simdjson_ondemand_get_float_d.call(doc, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_float_d.call(doc, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_bool_d(
     doc: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Bool:
-    return _sow._seq_simdjson_ondemand_get_bool_d.call(doc, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_bool_d.call(doc, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_int_v(
     value: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_long:
-    return _sow._seq_simdjson_ondemand_get_int_v.call(value, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_int_v.call(value, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_uint_v(
     value: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_long:
-    return _sow._seq_simdjson_ondemand_get_uint_v.call(value, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_uint_v.call(value, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_float_v(
     value: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_double:
-    return _sow._seq_simdjson_ondemand_get_float_v.call(value, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_float_v.call(value, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_bool_v(
     value: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Bool:
-    return _sow._seq_simdjson_ondemand_get_bool_v.call(value, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_bool_v.call(value, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_int_v(p: c_void_ptr) -> c_long:
-    return _sow._seq_simdjson_ondemand_int_v.call(p)
+    return __wrapper._seq_simdjson_ondemand_int_v.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_uint_v(p: c_void_ptr) -> c_long:
-    return _sow._seq_simdjson_ondemand_uint_v.call(p)
+    return __wrapper._seq_simdjson_ondemand_uint_v.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_float_v(p: c_void_ptr) -> c_double:
-    return _sow._seq_simdjson_ondemand_float_v.call(p)
+    return __wrapper._seq_simdjson_ondemand_float_v.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_bool_v(p: c_void_ptr) -> Bool:
-    return _sow._seq_simdjson_ondemand_bool_v.call(p)
+    return __wrapper._seq_simdjson_ondemand_bool_v.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_string_v(
     p: c_void_ptr, n: UnsafePointer[c_size_t]
 ) -> c_char_ptr:
-    return _sow._seq_simdjson_ondemand_string_v.call(p, n)
+    return __wrapper._seq_simdjson_ondemand_string_v.call(p, n)
 
 
 @always_inline
 fn seq_simdjson_ondemand_object_v(p: c_void_ptr) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_object_v.call(p)
+    return __wrapper._seq_simdjson_ondemand_object_v.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_v(p: c_void_ptr) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_v.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_v.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_int_o(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_long:
-    return _sow._seq_simdjson_ondemand_get_int_o.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_int_o.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_uint_o(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_long:
-    return _sow._seq_simdjson_ondemand_get_uint_o.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_uint_o.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_float_o(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_double:
-    return _sow._seq_simdjson_ondemand_get_float_o.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_float_o.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_bool_o(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> Bool:
-    return _sow._seq_simdjson_ondemand_get_bool_o.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_bool_o.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_value_d(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_value_d.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_value_d.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_object_d(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_object_d.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_object_d.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_array_d(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_array_d.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_array_d.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_value_v(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_value_v.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_value_v.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_object_v(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_object_v.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_object_v.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_array_v(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_array_v.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_array_v.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_value_o(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_value_o.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_value_o.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_object_o(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_object_o.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_object_o.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_get_array_o(
     p: c_void_ptr, key: c_char_ptr, len: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_get_array_o.call(p, key, len)
+    return __wrapper._seq_simdjson_ondemand_get_array_o.call(p, key, len)
 
 
 @always_inline
 fn seq_simdjson_ondemand_parser_free(p: c_void_ptr) -> None:
-    return _sow._seq_simdjson_ondemand_parser_free.call(p)
+    return __wrapper._seq_simdjson_ondemand_parser_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_padded_string_free(p: c_void_ptr) -> None:
-    return _sow._seq_simdjson_padded_string_free.call(p)
+    return __wrapper._seq_simdjson_padded_string_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_document_free(p: c_void_ptr) -> None:
-    return _sow._seq_simdjson_ondemand_document_free.call(p)
+    return __wrapper._seq_simdjson_ondemand_document_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_value_free(p: c_void_ptr) -> None:
-    return _sow._seq_simdjson_ondemand_value_free.call(p)
+    return __wrapper._seq_simdjson_ondemand_value_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_object_free(p: c_void_ptr) -> None:
-    return _sow._seq_simdjson_ondemand_object_free.call(p)
+    return __wrapper._seq_simdjson_ondemand_object_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_free(p: c_void_ptr) -> None:
-    return _sow._seq_simdjson_ondemand_array_free.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_free.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_count_elements(p: c_void_ptr) -> c_size_t:
-    return _sow._seq_simdjson_ondemand_array_count_elements.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_count_elements.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at(p: c_void_ptr, index: c_size_t) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_at.call(p, index)
+    return __wrapper._seq_simdjson_ondemand_array_at.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at_obj(
     p: c_void_ptr, index: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_at_obj.call(p, index)
+    return __wrapper._seq_simdjson_ondemand_array_at_obj.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at_arr(
     p: c_void_ptr, index: c_size_t
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_at_arr.call(p, index)
+    return __wrapper._seq_simdjson_ondemand_array_at_arr.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at_int(p: c_void_ptr, index: c_size_t) -> c_long:
-    return _sow._seq_simdjson_ondemand_array_at_int.call(p, index)
+    return __wrapper._seq_simdjson_ondemand_array_at_int.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at_uint(
     p: c_void_ptr, index: c_size_t
 ) -> c_long:
-    return _sow._seq_simdjson_ondemand_array_at_uint.call(p, index)
+    return __wrapper._seq_simdjson_ondemand_array_at_uint.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at_float(
     p: c_void_ptr, index: c_size_t
 ) -> c_double:
-    return _sow._seq_simdjson_ondemand_array_at_float.call(p, index)
+    return __wrapper._seq_simdjson_ondemand_array_at_float.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at_bool(p: c_void_ptr, index: c_size_t) -> Bool:
-    return _sow._seq_simdjson_ondemand_array_at_bool.call(p, index)
+    return __wrapper._seq_simdjson_ondemand_array_at_bool.call(p, index)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_at_str(
     p: c_void_ptr, index: c_size_t, n: UnsafePointer[c_size_t]
 ) -> c_char_ptr:
-    return _sow._seq_simdjson_ondemand_array_at_str.call(p, index, n)
+    return __wrapper._seq_simdjson_ondemand_array_at_str.call(p, index, n)
 
 
 @always_inline
 fn seq_simdjson_ondemand_value_type(p: c_void_ptr) -> c_long:
-    return _sow._seq_simdjson_ondemand_value_type.call(p)
+    return __wrapper._seq_simdjson_ondemand_value_type.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get(p: c_void_ptr) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_iter_get.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get_int(p: c_void_ptr) -> c_long:
-    return _sow._seq_simdjson_ondemand_array_iter_get_int.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get_int.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get_uint(p: c_void_ptr) -> c_long:
-    return _sow._seq_simdjson_ondemand_array_iter_get_uint.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get_uint.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get_float(p: c_void_ptr) -> c_double:
-    return _sow._seq_simdjson_ondemand_array_iter_get_float.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get_float.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get_bool(p: c_void_ptr) -> Bool:
-    return _sow._seq_simdjson_ondemand_array_iter_get_bool.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get_bool.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get_str(
     p: c_void_ptr, n: UnsafePointer[c_size_t]
 ) -> c_char_ptr:
-    return _sow._seq_simdjson_ondemand_array_iter_get_str.call(p, n)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get_str.call(p, n)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get_obj(
     p: c_void_ptr,
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_iter_get_obj.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get_obj.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_get_arr(
     p: c_void_ptr,
 ) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_iter_get_arr.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_iter_get_arr.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_begin(p: c_void_ptr) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_begin.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_begin.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_end(p: c_void_ptr) -> c_void_ptr:
-    return _sow._seq_simdjson_ondemand_array_end.call(p)
+    return __wrapper._seq_simdjson_ondemand_array_end.call(p)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_not_equal(
     lhs: c_void_ptr, rhs: c_void_ptr
 ) -> Bool:
-    return _sow._seq_simdjson_ondemand_array_iter_not_equal.call(lhs, rhs)
+    return __wrapper._seq_simdjson_ondemand_array_iter_not_equal.call(lhs, rhs)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_step(it: c_void_ptr) -> None:
-    return _sow._seq_simdjson_ondemand_array_iter_step.call(it)
+    return __wrapper._seq_simdjson_ondemand_array_iter_step.call(it)
 
 
 @always_inline
 fn seq_simdjson_ondemand_array_iter_free(it: c_void_ptr) -> None:
-    return _sow._seq_simdjson_ondemand_array_iter_free.call(it)
+    return __wrapper._seq_simdjson_ondemand_array_iter_free.call(it)
 
 
 struct OndemandValue:

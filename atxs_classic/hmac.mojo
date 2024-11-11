@@ -1,5 +1,6 @@
 from memory import UnsafePointer
 from collections.vector import InlinedFixedVector
+from .internal.ffi import *
 
 
 fn hmac_sha256_hex(message: String, secret_key: String) -> String:
@@ -24,7 +25,7 @@ fn hmac_sha256_hex(message: String, secret_key: String) -> String:
     var s_ptr = UnsafePointer[UInt8].alloc(65)
     var s_len = seq_hex_encode(b_ptr, n, s_ptr)
     # var s = c_str_to_string(s_ptr, s_len)
-    var s = String(s_ptr, s_len + 1)
+    var s = String(ptr=s_ptr, length=s_len + 1)
 
     b_ptr.free()
     # s_ptr.free()
@@ -54,7 +55,7 @@ fn hmac_sha512_hex(message: String, secret_key: String) -> String:
     var s_ptr = UnsafePointer[UInt8].alloc(129)  # 65
     var s_len = seq_hex_encode(b_ptr, n, s_ptr)
     # var s = c_str_to_string(s_ptr, s_len)
-    var s = String(s_ptr, s_len + 1)
+    var s = String(ptr=s_ptr, length=s_len + 1)
 
     b_ptr.free()
     # s_ptr.free()

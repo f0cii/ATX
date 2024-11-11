@@ -31,7 +31,7 @@ struct SSMap:
             key.unsafe_cstr_ptr(),
             UnsafePointer[c_size_t].address_of(n),
         )
-        return c_str_to_string(s, n)
+        return c_str_to_string(s.bitcast[UInt8](), n)
 
     fn __len__(self) -> Int:
         return seq_ssmap_size(self.ptr)

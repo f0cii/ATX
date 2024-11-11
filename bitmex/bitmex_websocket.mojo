@@ -3,8 +3,8 @@ from time import sleep
 from collections import Optional, Dict, List
 from python import Python
 
-from atxsys import *
-from atxsys.websocket import (
+from atxs_classic import *
+from atxs_classic.websocket import (
     register_websocket,
     TLS1_3_VERSION,
     on_connected_callback,
@@ -17,7 +17,6 @@ from atxsys.websocket import (
     set_on_message,
     WebSocket,
 )
-# from atxsys.sj_ondemand import OndemandParser
 
 from .subscriptions import DEFAULT_SUBS, NO_SYMBOL_SUBS
 from .api_key import generate_nonce, generate_signature

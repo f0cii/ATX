@@ -181,36 +181,75 @@ fn test_write_array() raises:
     assert_equal(o.to_string(), '{"a":[100,1,2,3]}')
 
 
-# test object iterator
-fn test_object_iterator() raises:
-    var o = JsonObject('{"a":100, "b":200, "c":300}')
-    var keys = o.keys()
-    assert_equal(len(keys), 3)
-    assert_equal(keys[0], "a")
-    assert_equal(keys[1], "b")
-    assert_equal(keys[2], "c")
+fn test_object_iterator_ref() raises:
+    var body = String(
+        '{"retCode":0,"retMsg":"OK","result":{"category":"linear","list":[{"symbol":"BTCUSDT","contractType":"LinearPerpetual","status":"Trading","baseCoin":"BTC","quoteCoin":"USDT","launchTime":"1585526400000","deliveryTime":"0","deliveryFeeRate":"","priceScale":"2","leverageFilter":{"minLeverage":"1","maxLeverage":"100.00","leverageStep":"0.01"},"priceFilter":{"minPrice":"0.10","maxPrice":"199999.80","tickSize":"0.10"},"lotSizeFilter":{"maxOrderQty":"100.000","minOrderQty":"0.001","qtyStep":"0.001","postOnlyMaxOrderQty":"1000.000"},"unifiedMarginTrade":true,"fundingInterval":480,"settleCoin":"USDT","copyTrading":"normalOnly"}],"nextPageCursor":""},"retExtInfo":{},"time":1696236288675}'
+    )
 
-    var kvs = o.iter()
-    assert_equal(len(kvs), 3)
-    assert_equal(kvs[0][0], "a")
-    assert_equal(kvs[0][1].as_i64(), 100)
-    assert_equal(kvs[1][0], "b")
-    assert_equal(kvs[1][1].as_i64(), 200)
-    assert_equal(kvs[2][0], "c")
-    assert_equal(kvs[2][1].as_i64(), 300)
+    var doc = JsonObject(body)
+    var ret_code = doc.get_i64("retCode")
+    var ret_msg = doc.get_str("retMsg")
+    if ret_code != 0:
+        raise "error retCode=" + str(ret_code) + ", retMsg=" + ret_msg
 
-    var key_list = List[String]()
-    var value_list = List[Int64]()
+    var result = doc.get_object_ref("result")
+    var result_list = result.get_array_ref("list")
 
-    for kv in o.iter():
-        var key = Pointer.address_of(kv[][0])
-        var value = Pointer.address_of(kv[][1])
-        key_list.append((key[]))
-        value_list.append(value[].as_i64())
+    if result_list.len() == 0:
+        raise "error list length is 0"
 
-    assert_equal(key_list[0], "a")
-    assert_equal(key_list[1], "b")
-    assert_equal(key_list[2], "c")
-    assert_equal(value_list[0], 100)
-    assert_equal(value_list[1], 200)
-    assert_equal(value_list[2], 300)
+    var list_iter = result_list.iter()
+    while True:
+        var value = list_iter.next()
+        if value.is_null():
+            break
+
+        var obj = value.as_object_ref()
+
+        var symbol_ = obj.get_str("symbol")
+
+        var priceFilter = obj.get_object_ref("priceFilter")
+        var tick_size = float(priceFilter.get_str("tickSize"))
+        var lotSizeFilter = obj.get_object_ref("lotSizeFilter")
+        var stepSize = float(lotSizeFilter.get_str("qtyStep"))
+
+        assert_equal(symbol_, "BTCUSDT")
+        assert_equal(tick_size, 0.1)
+        assert_equal(stepSize, 0.001)
+
+
+fn test_object_iterator_mut() raises:
+    var body = String(
+        '{"retCode":0,"retMsg":"OK","result":{"category":"linear","list":[{"symbol":"BTCUSDT","contractType":"LinearPerpetual","status":"Trading","baseCoin":"BTC","quoteCoin":"USDT","launchTime":"1585526400000","deliveryTime":"0","deliveryFeeRate":"","priceScale":"2","leverageFilter":{"minLeverage":"1","maxLeverage":"100.00","leverageStep":"0.01"},"priceFilter":{"minPrice":"0.10","maxPrice":"199999.80","tickSize":"0.10"},"lotSizeFilter":{"maxOrderQty":"100.000","minOrderQty":"0.001","qtyStep":"0.001","postOnlyMaxOrderQty":"1000.000"},"unifiedMarginTrade":true,"fundingInterval":480,"settleCoin":"USDT","copyTrading":"normalOnly"}],"nextPageCursor":""},"retExtInfo":{},"time":1696236288675}'
+    )
+
+    var doc = JsonObject(body)
+    var ret_code = doc.get_i64("retCode")
+    var ret_msg = doc.get_str("retMsg")
+    if ret_code != 0:
+        raise "error retCode=" + str(ret_code) + ", retMsg=" + ret_msg
+
+    var result = doc.get_object_mut("result")
+    var result_list = result.get_array_mut("list")
+
+    if result_list.len() == 0:
+        raise "error list length is 0"
+
+    var list_iter = result_list.iter_mut()
+    while True:
+        var value = list_iter.next()
+        if value.is_null():
+            break
+
+        var obj = value.as_object_mut()
+
+        var symbol_ = obj.get_str("symbol")
+
+        var priceFilter = obj.get_object_mut("priceFilter")
+        var tick_size = float(priceFilter.get_str("tickSize"))
+        var lotSizeFilter = obj.get_object_mut("lotSizeFilter")
+        var stepSize = float(lotSizeFilter.get_str("qtyStep"))
+
+        assert_equal(symbol_, "BTCUSDT")
+        assert_equal(tick_size, 0.1)
+        assert_equal(stepSize, 0.001)
