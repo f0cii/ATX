@@ -3,8 +3,10 @@ from testing import assert_equal, assert_true
 from os import getenv
 from time import now
 from random import randn_float64, random_float64, random_si64, random_ui64, seed
-from atxs import *
-from atxs.httpclient import HttpClient, TlsContext, HttpClientOperation
+# from atxs import *
+# from atxs.httpclient import HttpClient, TlsContext, HttpClientOperation
+from atxs_classic import *
+from atxs_classic.httpclient_ex import HttpClientEx, TlsContext, HttpClientOperation
 
 
 fn init_photon() raises -> None:
@@ -122,7 +124,7 @@ fn test_photon_http_client() raises -> None:
 
 
 fn test_http_client() raises -> None:
-    var http_client = HttpClient()
+    var http_client = HttpClientEx()
 
     var user_agent = String(
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -194,7 +196,7 @@ fn test_mojo_malloc_performance() raises -> None:
         ptr.free()
 
     var end = now()
-    print("mojo_malloc Time: ", (end - start) / n, "ns")
+    print("test_mojo_malloc_performance Time: ", (end - start) / n, "ns")
 
     print("total_sum: ", total_sum)
 
@@ -245,6 +247,16 @@ fn test_pooled_allocator_performance() raises -> None:
     photon_pooled_allocator_destory(allocator)
 
 
+# fn test_httpclient_classic() raises:
+#     # var base_url = "https://www.baidu.com"
+#     var base_url = "https://api.bybit.com"
+#     # https://api.bybit.com/v3/public/time
+#     var client = HttpClientClassic(base_url)
+#     var headers = Headers()
+#     headers["a"] = "abc"
+#     var response = client.get("/v3/public/time", headers)
+#     print(response.text)
+
 # cp ~/f0cii/echo-cpp2/build/linux/x86_64/release/libecho2.so ~/mojo/echo/
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(realpath .)
 # export LD_PRELOAD=./libecho2.so
@@ -264,6 +276,9 @@ fn main() raises -> None:
     test_malloc_performance()
     test_pooled_allocator_performance()
     fini_photon()
+
+    # _ = seq_ct_init()
+    # test_httpclient_classic()
 
     # while True:
     #     time.sleep(1000)

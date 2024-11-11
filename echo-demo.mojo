@@ -307,18 +307,6 @@ fn test_json3() raises:
         var elapsed = end - start
         print(String.write("Elapsed time: ", elapsed, " ns"))
         # print(s)
-
-        # var yy_doc = yyjson_mut_doc()
-        # yy_doc.add_str("req_id", "100")
-        # yy_doc.add_str("op", "subscribe")
-        # # var values = List[String]()
-        # # var topics = "a,b,c".split(",")
-        # # for topic in topics:
-        # #     values.append(topic[])
-        # # yy_doc.arr_with_str("args", values)
-        # var body_str = yy_doc.mut_write()
-        # print(body_str)
-        # _ = values ^
     except e:
         print(e)
 
@@ -445,7 +433,7 @@ fn main() raises:
     # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(realpath .)
     # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(realpath . .magic/envs/default/lib)
     # export LD_PRELOAD=./libecho.so
-    # LD_PRELOAD=./libecho.so ./echo-demo
+    # LD_PRELOAD=./lib/libatx-classic.so ./echo-demo
 
     # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(realpath .magic/envs/default/lib .magic/envs/default/lib/python3.12/site-packages/)
     # LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(realpath .) LD_PRELOAD=./libecho.so ./echo-demo

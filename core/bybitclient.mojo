@@ -319,11 +319,11 @@ struct BybitClient:
         Switch position mode
         mode: 0-PositionModeMergedSingle 3-PositionModeBothSides
         """
-        var yy_doc = yyjson_mut_doc()
-        yy_doc.add_str("category", category)
-        yy_doc.add_str("symbol", symbol)
-        yy_doc.add_str("mode", mode)
-        var body_str = yy_doc.mut_write()
+        var post_doc = JsonObject()
+        post_doc.insert_str("category", category)
+        post_doc.insert_str("symbol", symbol)
+        post_doc.insert_str("mode", mode)
+        var body_str = post_doc.to_string()
 
         # logi("body=" + body_str)
         # {"category":"linear","symbol":"BTCUSDT","mode":"0"}
@@ -361,12 +361,12 @@ struct BybitClient:
         """
         Set leverage multiplier
         """
-        var yy_doc = yyjson_mut_doc()
-        yy_doc.add_str("category", category)
-        yy_doc.add_str("symbol", symbol)
-        yy_doc.add_str("buyLeverage", buy_leverage)
-        yy_doc.add_str("sellLeverage", sell_leverage)
-        var body_str = yy_doc.mut_write()
+        var post_doc = JsonObject()
+        post_doc.insert_str("category", category)
+        post_doc.insert_str("symbol", symbol)
+        post_doc.insert_str("buyLeverage", buy_leverage)
+        post_doc.insert_str("sellLeverage", sell_leverage)
+        var body_str = post_doc.to_string()
 
         # print(body_str)
 
@@ -409,25 +409,25 @@ struct BybitClient:
         Place an order.
         is_leverage:	false	integer	是否借貸. 僅統一帳戶的現貨交易有效. 0(default): 否，則是幣幣訂單, 1: 是，則是槓桿訂單.
         """
-        var yy_doc = yyjson_mut_doc()
-        yy_doc.add_str("category", category)
-        yy_doc.add_str("symbol", symbol)
-        yy_doc.add_str("side", side)
-        yy_doc.add_str("orderType", order_type)
-        yy_doc.add_str("qty", qty)
+        var post_doc = JsonObject()
+        post_doc.insert_str("category", category)
+        post_doc.insert_str("symbol", symbol)
+        post_doc.insert_str("side", side)
+        post_doc.insert_str("orderType", order_type)
+        post_doc.insert_str("qty", qty)
         if price != "":
-            yy_doc.add_str("price", price)
+            post_doc.insert_str("price", price)
         if time_in_force != "":
-            yy_doc.add_str("timeInForce", time_in_force)
+            post_doc.insert_str("timeInForce", time_in_force)
         if position_idx != 0:
-            yy_doc.add_str("positionIdx", str(position_idx))
+            post_doc.insert_str("positionIdx", str(position_idx))
         if order_link_id != "":
-            yy_doc.add_str("orderLinkId", order_link_id)
+            post_doc.insert_str("orderLinkId", order_link_id)
         if reduce_only:
-            yy_doc.add_str("reduceOnly", "true")
+            post_doc.insert_str("reduceOnly", "true")
         if is_leverage != -1:
-            yy_doc.add_int("isLeverage", is_leverage)
-        var body_str = yy_doc.mut_write()
+            post_doc.insert_i64("isLeverage", is_leverage)
+        var body_str = post_doc.to_string()
 
         # print(body_str)
 
@@ -469,14 +469,14 @@ struct BybitClient:
         """
         Cancel order
         """
-        var yy_doc = yyjson_mut_doc()
-        yy_doc.add_str("category", category)
-        yy_doc.add_str("symbol", symbol)
+        var post_doc = JsonObject()
+        post_doc.insert_str("category", category)
+        post_doc.insert_str("symbol", symbol)
         if order_id != "":
-            yy_doc.add_str("orderId", order_id)
+            post_doc.insert_str("orderId", order_id)
         if order_link_id != "":
-            yy_doc.add_str("orderLinkId", order_link_id)
-        var body_str = yy_doc.mut_write()
+            post_doc.insert_str("orderLinkId", order_link_id)
+        var body_str = post_doc.to_string()
 
         # print(body_str)
 
@@ -514,14 +514,14 @@ struct BybitClient:
         """
         Batch cancel orders
         """
-        var yy_doc = yyjson_mut_doc()
-        yy_doc.add_str("category", category)
-        yy_doc.add_str("symbol", symbol)
+        var post_doc = JsonObject()
+        post_doc.insert_str("category", category)
+        post_doc.insert_str("symbol", symbol)
         if base_coin != "":
-            yy_doc.add_str("baseCoin", base_coin)
+            post_doc.insert_str("baseCoin", base_coin)
         if settle_coin != "":
-            yy_doc.add_str("settleCoin", settle_coin)
-        var body_str = yy_doc.mut_write()
+            post_doc.insert_str("settleCoin", settle_coin)
+        var body_str = post_doc.to_string()
 
         # print(body_str)
 
