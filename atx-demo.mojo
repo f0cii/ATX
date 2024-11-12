@@ -10,7 +10,8 @@ from atxs_classic.httpclient_ex import HttpClientEx, TlsContext, HttpClientOpera
 
 
 fn init_photon() raises -> None:
-    var wsl_distro_name = getenv("WSL_DISTRO_NAME")
+    # var wsl_distro_name = getenv("WSL_DISTRO_NAME")
+    var wsl_distro_name = ""
     var options = PhotonOptions()
     var event_engine = INIT_EVENT_IOURING if wsl_distro_name == "" else INIT_EVENT_EPOLL
     var ret = photon_init(event_engine, INIT_IO_NONE, options)

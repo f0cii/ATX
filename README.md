@@ -5,12 +5,12 @@ magic shell
 source init.sh
 
 # 稳定版
-# export LD_PRELOAD=./lib/libatx-classic.so
-LD_PRELOAD=./lib/libatx-classic.so mojo test test_bybitclientjson.mojo
+# export LD_PRELOAD=./libatx-classic.so
+LD_PRELOAD=./libatx-classic.so mojo test test_bybitclientjson.mojo
 
-LD_PRELOAD=./lib/libatx-classic.so mojo run atx-classic-demo.mojo
+LD_PRELOAD=./libatx-classic.so mojo run atx-classic-demo.mojo
 
-LD_PRELOAD=./lib/libatx-classic.so mojo run atx-demo.mojo
+LD_PRELOAD=./libatx-classic.so mojo run atx-demo.mojo
 
 # 测试版
 # LD_PRELOAD=./lib/libatx.so mojo run atx-demo.mojo

@@ -9,3 +9,5 @@ __pycache__
 *.dylib
 *.log
 bybit-demo
+atx-demo
+atx-classic-demo
