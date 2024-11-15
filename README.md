@@ -13,8 +13,7 @@ LD_PRELOAD=./libatx-classic.so mojo run atx-classic-demo.mojo
 LD_PRELOAD=./libatx-classic.so mojo run atx-demo.mojo
 
 # 测试版
-# LD_PRELOAD=./lib/libatx.so mojo run atx-demo.mojo
-mojo run atx-demo.mojo
+LD_PRELOAD=./libatx-classic.so mojo run atx-demo.mojo
 
 # 安装mojo vs code插件
 rm -rf /home/yl/.cursor-server/data/User/globalStorage/modular-mojotools.vscode-mojo-nightly

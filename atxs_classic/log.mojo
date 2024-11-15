@@ -23,7 +23,7 @@ fn init_log(level: String, filename: String) -> None:
         level_ = LOG_LEVEL_ERR
     elif level == "OFF":
         level_ = LOG_LEVEL_OFF
-    seq_init_log(level_, filename.unsafe_cstr_ptr(), len(filename))
+    # seq_init_log(level_, filename.unsafe_cstr_ptr(), len(filename))
 
 
 # 规整文件名: /home/yl/mojo/moxt-pro/strategies/runner.mojo -> strategies/runner.mojo

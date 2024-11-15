@@ -13,7 +13,7 @@ fn sha512_hex(text: String) -> String:
     )
     var s_ptr = UnsafePointer[UInt8].alloc(SHA512_DIGEST_LENGTH + 1)
     var s_len = seq_hex_encode(b_ptr, n, s_ptr)
-    var s = String(s_ptr, s_len + 1)
+    var s = String(ptr=s_ptr, length=s_len + 1)
 
     b_ptr.free()
 

@@ -17,8 +17,8 @@ from atxs_classic.websocket import (
     set_on_heartbeat,
     set_on_message,
 )
-from bitmex.bitmex_client import tset_bitmex_api
-from gateio.futures_client import GateIOFuturesClient
+# from bitmex.bitmex_client import tset_bitmex_api
+# from gateio.futures_client import GateIOFuturesClient
 
 from collections import Dict
 from atxs import now_ms, now_ns
@@ -147,60 +147,60 @@ fn test_sha512() raises:
     print(s)
 
 
-fn tset_gateio_client() raises:
-    # var api_key = ""
-    # var api_secret = ""
-    # testnet
-    var api_key = "10d23703c09150b1bf4c5bb7f0f1dd2e"
-    var api_secret = "996c14c32700f3ce63d0f5530793766a7b8bda8cdfaf5d71071915235f3d3f50"
-    # var base_url = "https://api.gateio.ws/api/v4"
-    # var base_url = "https://api.gateio.ws"
-    var base_url = "https://fx-api-testnet.gateio.ws"
-    var ex = GateIOFuturesClient(api_key, api_secret, base_url)
-    var settle = "usdt"
-    # {"contract":symbol,"size":size,"price": price,"tif": tif,"close": close,"auto_size":auto_size,"reduce_only":reduce_only}
-    var contract = "BTC_USDT"
-    var size = 1
-    var price = "60000.0"
-    var tif = ""
-    var close = False
-    var auto_size = ""
-    var reduce_only = False
+# fn tset_gateio_client() raises:
+#     # var api_key = ""
+#     # var api_secret = ""
+#     # testnet
+#     var api_key = "10d23703c09150b1bf4c5bb7f0f1dd2e"
+#     var api_secret = "996c14c32700f3ce63d0f5530793766a7b8bda8cdfaf5d71071915235f3d3f50"
+#     # var base_url = "https://api.gateio.ws/api/v4"
+#     # var base_url = "https://api.gateio.ws"
+#     var base_url = "https://fx-api-testnet.gateio.ws"
+#     var ex = GateIOFuturesClient(api_key, api_secret, base_url)
+#     var settle = "usdt"
+#     # {"contract":symbol,"size":size,"price": price,"tif": tif,"close": close,"auto_size":auto_size,"reduce_only":reduce_only}
+#     var contract = "BTC_USDT"
+#     var size = 1
+#     var price = "60000.0"
+#     var tif = ""
+#     var close = False
+#     var auto_size = ""
+#     var reduce_only = False
 
-    # var res = ex.get_contracts(settle, limit=1)
-    # logi(res)
+#     # var res = ex.get_contracts(settle, limit=1)
+#     # logi(res)
 
-    var res0 = ex.get_contract(settle, "BTC_USDT")
-    logi(res0)
+#     var res0 = ex.get_contract(settle, "BTC_USDT")
+#     logi(res0)
 
-    print("100")
-    var r = ex._sign("Hello")
-    print("101")
-    logi("r=" + r)
+#     print("100")
+#     var r = ex._sign("Hello")
+#     print("101")
+#     logi("r=" + r)
 
-    # BTC_USDT "quanto_multiplier": "0.0001"
+#     # BTC_USDT "quanto_multiplier": "0.0001"
 
-    # var res1 = ex.place_order(
-    #     settle,
-    #     contract=contract,
-    #     size=size,
-    #     price=price,
-    #     close=close,
-    #     reduce_only=reduce_only,
-    #     tif=tif,
-    #     auto_size=auto_size,
-    # )
-    # logi(res1)
+#     # var res1 = ex.place_order(
+#     #     settle,
+#     #     contract=contract,
+#     #     size=size,
+#     #     price=price,
+#     #     close=close,
+#     #     reduce_only=reduce_only,
+#     #     tif=tif,
+#     #     auto_size=auto_size,
+#     # )
+#     # logi(res1)
 
-    var res2 = ex.get_futures_orders(
-        settle=settle,
-        status="open",
-        # contract: Optional[String] = None,
-        # limit: Optional[Int] = None,
-        # offset: Optional[Int] = None,
-        # last_id: Optional[String] = None,
-    )
-    logi(res2)
+#     var res2 = ex.get_futures_orders(
+#         settle=settle,
+#         status="open",
+#         # contract: Optional[String] = None,
+#         # limit: Optional[Int] = None,
+#         # offset: Optional[Int] = None,
+#         # last_id: Optional[String] = None,
+#     )
+#     logi(res2)
 
 
 fn test_json() raises:
@@ -371,6 +371,57 @@ fn test_sonic_json() raises:
     print("sonic_json Time: ", (end - start) / n, "ns")
 
 
+fn test_ticker_performance1() raises -> None:
+    var s = '{"e":"24hrTicker","E":1731286910907,"s":"BTCUSDT","p":"3884.60","P":"5.058","w":"79482.55","c":"80680.00","Q":"0.009","o":"76795.40","h":"81699.80","l":"76655.60","v":"415859.731","q":"33053590807.50","O":1731200460000,"C":1731286910904,"F":5559094280,"L":5564892291,"n":5791297}'
+    var start = now()
+    var n = 1000000
+    for i in range(n):
+        var value = JsonValue.from_str(s)
+        var obj = JsonValueObjectView(value)
+        var e = obj.get_str("e")
+        var E = obj.get_i64("E")
+        var s_ = obj.get_str("s")
+        var p = obj.get_f64("p")
+        var P = obj.get_f64("P")
+        assert_true(len(e) > 0)
+        # assert_equal(e, "24hrTicker")
+    var end = now()
+    print("ticker_performance Time: ", (end - start) / n, "ns")
+
+
+fn test_ticker_performance() raises -> None:
+    """
+    {"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}
+
+    解析出bid，ask，bidVolume，askVolume
+
+    {"e":"bookTicker","u":5778730150885,"s":"1000PEPEUSDT","b":"0.0212185","B":"57663","a":"0.0212186","A":"5914","T":1731636125351,"E":1731636125351}
+
+    """
+    var s = '{"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}'
+    var start = now()
+    var n = 1000000
+    for i in range(n):
+        var obj = JsonObject(s)
+        # var e = obj.get_str("e")
+        var u = obj.get_i64("u")
+        # var s_ = obj.get_str("s")
+        var b = obj.get_f64("b")
+        var B = obj.get_f64("B")
+        var a = obj.get_f64("a")
+        var A = obj.get_f64("A")
+        # assert_true(len(e) > 0)
+        # assert_equal(e, "24hrTicker")
+        assert_true(u > 0)
+        # assert_true(len(s_) > 0)
+        assert_true(b > 0)
+        assert_true(B > 0)
+        assert_true(a > 0)
+        assert_true(A > 0)
+    var end = now()
+    print("ticker_performance 111 Time: ", (end - start) / n, "ns")
+
+
 fn main() raises:
     var pre_init_lib = getenv("MOJO_PYTHON_LIBRARY")
     if pre_init_lib:
@@ -421,8 +472,7 @@ fn main() raises:
     # test_ember_json()
     # test_sonic_json()
 
-    var v = JsonObject("{}")
-    _ = v^
+    test_ticker_performance()
 
     time.sleep(1)
 

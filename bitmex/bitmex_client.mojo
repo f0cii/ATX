@@ -4,8 +4,8 @@ import time
 from atxs import now_ms, now_ns
 from atxs_classic.httpclient import HttpClient, Headers
 from atxs_classic.hmac import hmac_sha256_hex
-from atxs_classic.sonic import SonicDocument
 from atxs_classic import *
+from sonic import *
 
 
 alias METHOD_GET = "GET"

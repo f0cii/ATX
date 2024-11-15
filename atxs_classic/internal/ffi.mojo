@@ -47,7 +47,7 @@ struct _DLWrapper:
     ]
 
     var _seq_set_log_output_level: DL_Fn[
-        "seq_set_log_output_level", fn (UInt8, UnsafePointer[c_char], c_int) -> NoneType
+        "seq_set_log_output_level", fn (UInt8) -> NoneType
     ]
     var _seq_logvd: DL_Fn[
         "seq_logvd", fn (UnsafePointer[c_char], c_int) -> NoneType
@@ -141,12 +141,12 @@ struct _DLWrapper:
     ) -> Int]
 
     # Websocket
-    # var _seq_asio_ioc: DL_Fn["seq_asio_ioc", fn () -> c_void_ptr]
-    # var _seq_asio_run: DL_Fn["seq_asio_run", fn (ioc: c_void_ptr) -> None]
-    # var _seq_asio_run_ex: DL_Fn["seq_asio_run_ex", fn(ioc: c_void_ptr, bind_cpu: c_int, pool: Bool) -> None]
-    # var _seq_asio_ioc_poll: DL_Fn[
-    #     "seq_asio_ioc_poll", fn (ioc: c_void_ptr) -> None
-    # ]
+    var _seq_asio_ioc: DL_Fn["seq_asio_ioc", fn () -> c_void_ptr]
+    var _seq_asio_run: DL_Fn["seq_asio_run", fn (ioc: c_void_ptr) -> None]
+    var _seq_asio_run_ex: DL_Fn["seq_asio_run_ex", fn(ioc: c_void_ptr, bind_cpu: c_int, pool: Bool) -> None]
+    var _seq_asio_ioc_poll: DL_Fn[
+        "seq_asio_ioc_poll", fn (ioc: c_void_ptr) -> None
+    ]
     var _seq_websocket_new: DL_Fn[
         "seq_websocket_new",
         fn (
@@ -225,10 +225,10 @@ struct _DLWrapper:
         self._seq_cclient_free = self._handle
         self._seq_cclient_do_request = self._handle
 
-        # self._seq_asio_ioc = self._handle
-        # self._seq_asio_run = self._handle
-        # self._seq_asio_run_ex = self._handle
-        # self._seq_asio_ioc_poll = self._handle
+        self._seq_asio_ioc = self._handle
+        self._seq_asio_run = self._handle
+        self._seq_asio_run_ex = self._handle
+        self._seq_asio_ioc_poll = self._handle
         self._seq_websocket_new = self._handle
         self._seq_websocket_delete = self._handle
         self._seq_websocket_connect = self._handle
@@ -386,21 +386,21 @@ fn seq_cclient_do_request(
         client, path, path_len, verb, headers, body, body_len, res, res_len, n, verbose
     )
 
-# @always_inline
-# fn seq_asio_ioc() -> c_void_ptr:
-#     return __wrapper._seq_asio_ioc.call()
+@always_inline
+fn seq_asio_ioc() -> c_void_ptr:
+    return __wrapper._seq_asio_ioc.call()
 
-# @always_inline
-# fn seq_asio_run(ioc: c_void_ptr) -> None:
-#     __wrapper._seq_asio_run.call(ioc)
+@always_inline
+fn seq_asio_run(ioc: c_void_ptr) -> None:
+    __wrapper._seq_asio_run.call(ioc)
 
-# @always_inline
-# fn seq_asio_run_ex(ioc: c_void_ptr, bind_cpu: c_int = -1, pool: Bool = False) -> None:
-#     __wrapper._seq_asio_run_ex.call(ioc, bind_cpu, pool)
+@always_inline
+fn seq_asio_run_ex(ioc: c_void_ptr, bind_cpu: c_int = -1, pool: Bool = False) -> None:
+    __wrapper._seq_asio_run_ex.call(ioc, bind_cpu, pool)
 
-# @always_inline
-# fn seq_asio_ioc_poll(ioc: c_void_ptr) -> None:
-#     __wrapper._seq_asio_ioc_poll.call(ioc)
+@always_inline
+fn seq_asio_ioc_poll(ioc: c_void_ptr) -> None:
+    __wrapper._seq_asio_ioc_poll.call(ioc)
 
 @always_inline
 fn seq_websocket_set_on_connected(
