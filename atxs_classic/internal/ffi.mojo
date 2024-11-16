@@ -49,6 +49,9 @@ struct _DLWrapper:
     var _seq_set_log_output_level: DL_Fn[
         "seq_set_log_output_level", fn (UInt8) -> NoneType
     ]
+    var _seq_init_log: DL_Fn[
+        "seq_init_log", fn (UInt8, UnsafePointer[c_char], c_int) -> NoneType
+    ]
     var _seq_logvd: DL_Fn[
         "seq_logvd", fn (UnsafePointer[c_char], c_int) -> NoneType
     ]
@@ -202,6 +205,7 @@ struct _DLWrapper:
         self._seq_int_to_voidptr = self._handle
 
         self._seq_set_log_output_level = self._handle
+        self._seq_init_log = self._handle
         self._seq_logvd = self._handle
         self._seq_logvi = self._handle
         self._seq_logvw = self._handle
@@ -262,6 +266,10 @@ fn seq_set_log_output_level(
     level: UInt8
 ):
     __wrapper._seq_set_log_output_level.call(level)
+
+@always_inline
+fn seq_init_log(level: UInt8, filename: UnsafePointer[c_char], length: c_int):
+    __wrapper._seq_init_log.call(level, filename, length)
 
 @always_inline
 fn seq_logvd(s: UnsafePointer[c_char], length: c_int):

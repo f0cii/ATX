@@ -1,8 +1,8 @@
 [project]
 authors = ["yl <2201441955@qq.com>"]
 channels = ["conda-forge", "https://conda.modular.com/max-nightly"]
-description = "echo"
-name = "echo"
+description = "atx"
+name = "atx"
 platforms = ["linux-64"]
 version = "0.1.0"
 

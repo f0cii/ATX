@@ -248,6 +248,7 @@ fn test_binance_ws() raises:
 
 
 fn main() raises:
+    init_log("DBG", "")
     test_bybitclient()
     test_bybitws()
     # test_binance_client()
