@@ -463,4 +463,4 @@ fn seq_websocket_send(
 fn seq_nanoid() -> String:
     var result = UnsafePointer[Int8].alloc(32)
     var len = __wrapper._seq_nanoid.call(result)
-    return String(result.bitcast[UInt8](), len + 1)
+    return String(ptr=result.bitcast[UInt8](), length=len + 1)

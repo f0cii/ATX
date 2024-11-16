@@ -1,5 +1,6 @@
 from time import now
 from core.bybitclient import *
+from core.bybitws import *
 from core.binanceclient import *
 from core.binancews import *
 
@@ -23,7 +24,7 @@ fn test_bybitclient() raises:
 
     var access_key = ""
     var secret_key = ""
-    var testnet = True
+    var testnet = False
     var client = BybitClient(
         testnet=testnet, access_key=access_key, secret_key=secret_key
     )
@@ -206,6 +207,35 @@ fn test_bybit_perf() raises:
     logi("Done!!!")
 
 
+fn test_bybitws() raises:
+    logd("test_bybitws")
+    var ws = BybitWS(
+        is_private=False,
+        testnet=False,
+        access_key="",
+        secret_key="",
+        category="linear",
+        topics="orderbook.1.BTCUSDT",
+    )
+
+    var on_connected = ws.get_on_connected()
+    var on_heartbeat = ws.get_on_heartbeat()
+    var on_message = ws.get_on_message()
+
+    ws.set_on_connected(on_connected^)
+    ws.set_on_heartbeat(on_heartbeat^)
+    ws.set_on_message(on_message^)
+
+    ws.connect()
+
+    logi("connect done")
+
+    var ioc = seq_asio_ioc()
+    seq_asio_run(ioc)
+
+    _ = ws^
+
+
 fn test_binance_client() raises:
     var client = BinanceClient(testnet=True, access_key="", secret_key="")
     # var res = client.fetch_public_time()
@@ -219,6 +249,7 @@ fn test_binance_ws() raises:
 
 fn main() raises:
     test_bybitclient()
+    test_bybitws()
     # test_binance_client()
     # test_binance_ws()
 

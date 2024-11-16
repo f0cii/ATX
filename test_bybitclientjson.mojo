@@ -326,3 +326,26 @@ fn test_fetch_orders_body_parse() raises:
         logi(str(item))
 
     logi("OK")
+
+
+fn test_bybitws_subscribe() raises:
+    var id = seq_nanoid()
+    assert_equal(len(id), 21)
+    id = "1"
+    var yy_doc = JsonObject()
+    yy_doc.insert_str("req_id", id)
+    yy_doc.insert_str("op", "subscribe")
+    # var values = List[String]()
+    var args = JsonArray()
+    # var topics = "orderbook.1.BTCUSDT"
+    var topics = "orderbook.1.BTCUSDT,orderbook.1.ETHUSDT"
+    var topics_list = topics.split(",")
+    for topic in topics_list:
+        # values.append(topic[])
+        args.push_str(topic[])
+    yy_doc.insert_array("args", args)
+    var body_str = yy_doc.to_string()
+    assert_equal(
+        body_str,
+        '{"req_id":"1","op":"subscribe","args":["orderbook.1.BTCUSDT","orderbook.1.ETHUSDT"]}',
+    )

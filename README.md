@@ -12,6 +12,8 @@ LD_PRELOAD=./libatx-classic.so mojo run atx-classic-demo.mojo
 
 LD_PRELOAD=./libatx-classic.so mojo run atx-demo.mojo
 
+LD_PRELOAD=./libatx-classic.so mojo run bybit-demo.mojo
+
 # 测试版
 LD_PRELOAD=./libatx-classic.so mojo run atx-demo.mojo
 

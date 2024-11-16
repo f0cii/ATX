@@ -180,15 +180,17 @@ struct BybitWS:
 
         try:
             var id = seq_nanoid()
-            var yy_doc = yyjson_mut_doc()
-            yy_doc.add_str("req_id", id)
-            yy_doc.add_str("op", "subscribe")
-            var values = List[String]()
+            var o = JsonObject()
+            o.insert_str("req_id", id)
+            o.insert_str("op", "subscribe")
+            # var values = List[String]()
+            var args = JsonArray()
             var topics = self._subscription_topics_str.split(",")
             for topic in topics:
-                values.append(topic[])
-            yy_doc.arr_with_str("args", values)
-            var body_str = yy_doc.mut_write()
+                # values.append(topic[])
+                args.push_str(topic[])
+            o.insert_array("args", args)
+            var body_str = o.to_string()
             logd("send: " + body_str)
             self.send(body_str)
         except err:
@@ -229,30 +231,26 @@ struct BybitWS:
             self.subscribe()
 
     fn generate_auth_payload(self) -> String:
-        try:
-            var ns = now_ns()
-            var expires = str(int(ns / 1e6 + 5000))
-            var req: String = "GET/realtime" + expires
-            var hex_signature = hmac_sha256_hex(req, self._secret_key)
+        var ns = now_ns()
+        var expires = str(int(ns / 1e6 + 5000))
+        var req: String = "GET/realtime" + expires
+        var hex_signature = hmac_sha256_hex(req, self._secret_key)
 
-            # logd("expires=" + expires)
-            # logd("req=" + req)
-            # logd("hex_signature=" + hex_signature)
+        # logd("expires=" + expires)
+        # logd("req=" + req)
+        # logd("hex_signature=" + hex_signature)
 
-            var id = seq_nanoid()
-            var yy_doc = yyjson_mut_doc()
-            yy_doc.add_str("req_id", id)
-            yy_doc.add_str("op", "auth")
-            var args = List[String]()
-            args.append(self._access_key)
-            args.append(expires)
-            args.append(hex_signature)
-            yy_doc.arr_with_str("args", args)
-            var body_str = yy_doc.mut_write()
-            return body_str
-        except err:
-            loge("generate_auth_payload error=" + str(err))
-            return ""
+        var id = seq_nanoid()
+        var o = JsonObject()
+        o.insert_str("req_id", id)
+        o.insert_str("op", "auth")
+        var args = JsonArray()
+        args.push_str(self._access_key)
+        args.push_str(expires)
+        args.push_str(hex_signature)
+        o.insert_array("args", args)
+        var body_str = o.to_string()
+        return body_str
 
     fn on_heartbeat(self) -> None:
         # logd("BybitWS.on_heartbeat")
@@ -263,10 +261,10 @@ struct BybitWS:
 
         var id = seq_nanoid()
 
-        var yy_doc = yyjson_mut_doc()
-        yy_doc.add_str("req_id", id)
-        yy_doc.add_str("op", "ping")
-        var body_str = yy_doc.mut_write()
+        var o = JsonObject()
+        o.insert_str("req_id", id)
+        o.insert_str("op", "ping")
+        var body_str = o.to_string()
         # logd("send: " + body_str)
         self.send(body_str)
 
