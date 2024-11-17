@@ -29,7 +29,7 @@ fn test_bybitclient() raises:
         testnet=testnet, access_key=access_key, secret_key=secret_key
     )
 
-    client.set_verbose(True)
+    # client.set_verbose(True)
 
     # Preparation phase
     var server_time = client.fetch_public_time()
@@ -207,6 +207,10 @@ fn test_bybit_perf() raises:
     logi("Done!!!")
 
 
+fn on_message(s: String) -> None:
+    logi("on_message: " + s)
+
+
 fn test_bybitws() raises:
     logd("test_bybitws")
     var ws = BybitWS(
@@ -224,7 +228,10 @@ fn test_bybitws() raises:
 
     ws.set_on_connected(on_connected^)
     ws.set_on_heartbeat(on_heartbeat^)
-    ws.set_on_message(on_message^)
+    # ws.set_on_message(on_message^)
+    ws.set_on_message(on_message)
+
+    ws.set_verbose(True)
 
     ws.connect()
 
@@ -248,8 +255,9 @@ fn test_binance_ws() raises:
 
 
 fn main() raises:
+    seq_set_log_output_level(0)
     init_log("DBG", "")
-    test_bybitclient()
+    # test_bybitclient()
     test_bybitws()
     # test_binance_client()
     # test_binance_ws()
