@@ -257,34 +257,56 @@ fn test_object_iterator_mut() raises:
 
 
 fn test_ticker_performance() raises -> None:
-    """
-    {"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}
+    # {"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}
+    # 解析出bid，ask，bidVolume，askVolume
+    # {"e":"bookTicker","u":5778730150885,"s":"1000PEPEUSDT","b":"0.0212185","B":"57663","a":"0.0212186","A":"5914","T":1731636125351,"E":1731636125351}
 
-    解析出bid，ask，bidVolume，askVolume
-
-    {"e":"bookTicker","u":5778730150885,"s":"1000PEPEUSDT","b":"0.0212185","B":"57663","a":"0.0212186","A":"5914","T":1731636125351,"E":1731636125351}
-
-    """
     var s = '{"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}'
     var start = now()
     var n = 5000000
     for i in range(n):
         var obj = JsonObject(s)
-        # var b = obj.get_str("b")
-        # var B = obj.get_str("B")
-        # var a = obj.get_str("a")
-        # var A = obj.get_str("A")
+        var b = obj.get_str("b")
+        var B = obj.get_str("B")
+        var a = obj.get_str("a")
+        var A = obj.get_str("A")
         # assert_equal(b, "88155.70")
         # assert_equal(B, "1.149")
         # assert_equal(a, "88155.80")
         # assert_equal(A, "21.054")
-        # assert_true(len(b) > 0)
-        # assert_true(len(B) > 0)
-        # assert_true(len(a) > 0)
-        # assert_true(len(A) > 0)
     var end = now()
-    print("ticker_performance Time: ", (end - start) / n, "ns")
+    print("ticker_performance get_str Time: ", (end - start) / n, "ns")
+
+
+fn test_ticker_performance1() raises -> None:
+    var s = '{"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}'
+    var start = now()
+    var n = 5000000
+    for i in range(n):
+        var obj = JsonObject(s)
+        var b_ref = obj.get_str_ref("b")
+        var B_ref = obj.get_str_ref("B")
+        var a_ref = obj.get_str_ref("a")
+        var A_ref = obj.get_str_ref("A")
+        # assert_equal(b_ref, "88155.70")
+        # assert_equal(B_ref, "1.149")
+        # assert_equal(a_ref, "88155.80")
+        # assert_equal(A_ref, "21.054")
+    var end = now()
+    print("ticker_performance1 get_str_ref Time: ", (end - start) / n, "ns")
+
+
+fn test_ticker_performance2() raises -> None:
+    var s = '{"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}'
+    var start = now()
+    var n = 5000000
+    for i in range(n):
+        var obj = JsonObject(s)
+    var end = now()
+    print("ticker_performance2 without get Time: ", (end - start) / n, "ns")
 
 
 fn main() raises:
     test_ticker_performance()
+    test_ticker_performance1()
+    test_ticker_performance2()

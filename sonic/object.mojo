@@ -174,6 +174,10 @@ struct JsonObject(JsonContainerTrait, Stringable):
         var ret_str = String(ret_str_ref)
         diplomat_buffer_write_destroy(out)
         return ret_str
+    
+    @always_inline
+    fn get_str_ref(self, key: StringRef) -> StringRef:
+        return jobject_get_str_ref(self._object, key)
 
     @always_inline
     fn get_object_ref(self, key: StringRef) -> JsonObjectRef:

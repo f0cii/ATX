@@ -111,7 +111,7 @@ fn test_sha256() raises:
     var text = "hello world"
     print(text)
     var hex_string = to_hex_string(
-        sha256_encode(text.unsafe_ptr().bitcast[DType.uint8](), len(text))
+        sha256_encode(text.unsafe_cstr_ptr().bitcast[UInt8](), len(text))
     )
     print(hex_string)
     assert_equal(
@@ -390,14 +390,10 @@ fn test_ticker_performance1() raises -> None:
 
 
 fn test_ticker_performance() raises -> None:
-    """
-    {"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}
+    # {"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}
+    # 解析出bid，ask，bidVolume，askVolume
+    # {"e":"bookTicker","u":5778730150885,"s":"1000PEPEUSDT","b":"0.0212185","B":"57663","a":"0.0212186","A":"5914","T":1731636125351,"E":1731636125351}
 
-    解析出bid，ask，bidVolume，askVolume
-
-    {"e":"bookTicker","u":5778730150885,"s":"1000PEPEUSDT","b":"0.0212185","B":"57663","a":"0.0212186","A":"5914","T":1731636125351,"E":1731636125351}
-
-    """
     var s = '{"e":"bookTicker","u":5778724155540,"s":"BTCUSDT","b":"88155.70","B":"1.149","a":"88155.80","A":"21.054","T":1731636077763,"E":1731636077763}'
     var start = now()
     var n = 1000000
