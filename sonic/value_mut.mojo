@@ -6,15 +6,15 @@ struct JsonValueMut(Stringable):
     var _value: UnsafePointer[JValueMut]
 
     @always_inline
-    fn __init__(inout self, v: UnsafePointer[JValueMut]):
+    fn __init__(out self, v: UnsafePointer[JValueMut]):
         self._value = v
 
     @always_inline
-    fn __copyinit__(inout self, other: JsonValueMut):
+    fn __copyinit__(out self, other: JsonValueMut):
         self._value = other._value
 
     @always_inline
-    fn __moveinit__(inout self, owned other: JsonValueMut):
+    fn __moveinit__(out self, owned other: JsonValueMut):
         self._value = other._value
 
     @always_inline
@@ -29,9 +29,9 @@ struct JsonValueMut(Stringable):
     # fn as_jarray_pointer(self) -> UnsafePointer[JArray]:
     #     return self._value.bitcast[JArray]()
 
-    @always_inline
-    fn mark_root(self) -> None:
-        return jvaluemut_mark_root(self._value)
+    # @always_inline
+    # fn mark_root(self) -> None:
+    #     return jvaluemut_mark_root(self._value)
 
     @always_inline
     fn get_type(self) -> JsonType:

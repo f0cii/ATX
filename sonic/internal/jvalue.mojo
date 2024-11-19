@@ -29,8 +29,6 @@ alias fn_jvalue_from_str = fn (s: DiplomatStringView) -> UnsafePointer[JValue]
 
 alias fn_jvalue_clone = fn (self: UnsafePointer[JValue]) -> UnsafePointer[JValue]
 
-alias fn_jvalue_mark_root = fn (self: UnsafePointer[JValue]) -> None
-
 alias fn_jvalue_get_type = fn (self: UnsafePointer[JValue]) -> JsonType
 
 alias fn_jvalue_is_boolean = fn (self: UnsafePointer[JValue]) -> c_bool
@@ -64,6 +62,8 @@ alias fn_jvalue_as_u64 = fn (self: UnsafePointer[JValue]) -> OptionU64Result
 alias fn_jvalue_as_f64 = fn (self: UnsafePointer[JValue]) -> OptionF64Result
 
 alias fn_jvalue_as_str = fn (self: UnsafePointer[JValue], default: DiplomatStringView, write: UnsafePointer[DiplomatWrite]) -> None
+
+alias fn_jvalue_as_str_ref = fn (self: UnsafePointer[JValue], default: DiplomatStringView) -> DiplomatStringView
 
 alias fn_jvalue_as_object = fn (self: UnsafePointer[JValue]) -> UnsafePointer[JObject]
 
@@ -99,8 +99,6 @@ struct _DLWrapper:
     
     var _jvalue_clone: fn_jvalue_clone
     
-    var _jvalue_mark_root: fn_jvalue_mark_root
-    
     var _jvalue_get_type: fn_jvalue_get_type
     
     var _jvalue_is_boolean: fn_jvalue_is_boolean
@@ -135,6 +133,8 @@ struct _DLWrapper:
     
     var _jvalue_as_str: fn_jvalue_as_str
     
+    var _jvalue_as_str_ref: fn_jvalue_as_str_ref
+    
     var _jvalue_as_object: fn_jvalue_as_object
     
     var _jvalue_as_object_mut: fn_jvalue_as_object_mut
@@ -147,7 +147,7 @@ struct _DLWrapper:
     
     var _jvalue_destroy: fn_jvalue_destroy
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
         
         self._jvalue_new = self._handle.get_function[fn_jvalue_new]("JValue_new")
@@ -165,8 +165,6 @@ struct _DLWrapper:
         self._jvalue_from_str = self._handle.get_function[fn_jvalue_from_str]("JValue_from_str")
         
         self._jvalue_clone = self._handle.get_function[fn_jvalue_clone]("JValue_clone")
-        
-        self._jvalue_mark_root = self._handle.get_function[fn_jvalue_mark_root]("JValue_mark_root")
         
         self._jvalue_get_type = self._handle.get_function[fn_jvalue_get_type]("JValue_get_type")
         
@@ -201,6 +199,8 @@ struct _DLWrapper:
         self._jvalue_as_f64 = self._handle.get_function[fn_jvalue_as_f64]("JValue_as_f64")
         
         self._jvalue_as_str = self._handle.get_function[fn_jvalue_as_str]("JValue_as_str")
+        
+        self._jvalue_as_str_ref = self._handle.get_function[fn_jvalue_as_str_ref]("JValue_as_str_ref")
         
         self._jvalue_as_object = self._handle.get_function[fn_jvalue_as_object]("JValue_as_object")
         
@@ -246,10 +246,6 @@ fn jvalue_from_str(s: DiplomatStringView) -> UnsafePointer[JValue]:
 @always_inline
 fn jvalue_clone(self: UnsafePointer[JValue]) -> UnsafePointer[JValue]:
     return __wrapper._jvalue_clone(self)
-
-@always_inline
-fn jvalue_mark_root(self: UnsafePointer[JValue]) -> None:
-    return __wrapper._jvalue_mark_root(self)
 
 @always_inline
 fn jvalue_get_type(self: UnsafePointer[JValue]) -> JsonType:
@@ -318,6 +314,10 @@ fn jvalue_as_f64(self: UnsafePointer[JValue]) -> OptionF64Result:
 @always_inline
 fn jvalue_as_str(self: UnsafePointer[JValue], default: DiplomatStringView, write: UnsafePointer[DiplomatWrite]) -> None:
     return __wrapper._jvalue_as_str(self, default, write)
+
+@always_inline
+fn jvalue_as_str_ref(self: UnsafePointer[JValue], default: DiplomatStringView) -> DiplomatStringView:
+    return __wrapper._jvalue_as_str_ref(self, default)
 
 @always_inline
 fn jvalue_as_object(self: UnsafePointer[JValue]) -> UnsafePointer[JObject]:
