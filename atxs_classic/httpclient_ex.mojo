@@ -68,7 +68,7 @@ struct HttpClientOperation[origin: MutableOrigin]:
         ref [origin]client: HttpClientEx,
         verb: Verb,
         url: String,
-        buf_size: Int = 1024,
+        buf_size: Int = 16 * 1024,
     ):
         self._op = photon_net_http_client_new_operation(
             client._client,
