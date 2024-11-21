@@ -4,7 +4,7 @@ from .internal.strcache import *
 
 @value
 struct StringCache:
-    fn __init__(inout self):
+    fn __init__(out self):
         pass
 
     @staticmethod
@@ -41,14 +41,14 @@ struct CString:
 struct MyStringCache:
     var _keys: List[Int64]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._keys = List[Int64]()
 
     fn __del__(owned self):
         for key in self._keys:
             _ = StringCache.free_string(key[])
 
-    fn set_string(inout self, s: String) -> CString:
+    fn set_string(out self, s: String) -> CString:
         var r = StringCache.set_string(s)
         var key = r.get[0, Int64]()
         var result = r.get[1, CString]()

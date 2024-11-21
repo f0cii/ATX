@@ -8,16 +8,16 @@ from .c import (
 struct SSMap:
     var ptr: c_void_ptr
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.ptr = seq_ssmap_new()
 
     fn __del__(owned self):
         seq_ssmap_free(self.ptr)
 
-    fn __moveinit__(inout self, owned existing: Self):
+    fn __moveinit__(out self, owned existing: Self):
         self.ptr = existing.ptr
 
-    fn __setitem__(inout self, key: String, value: String):
+    fn __setitem__(out self, key: String, value: String):
         seq_ssmap_set(
             self.ptr,
             key.unsafe_cstr_ptr(),

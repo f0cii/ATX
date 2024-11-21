@@ -14,8 +14,6 @@ from .jvaluemut_d import *
 
 alias fn_jvaluemut_clone = fn (self: UnsafePointer[JValueMut]) -> UnsafePointer[JValue]
 
-alias fn_jvaluemut_mark_root = fn (self: UnsafePointer[JValueMut]) -> None
-
 alias fn_jvaluemut_get_type = fn (self: UnsafePointer[JValueMut]) -> JsonType
 
 alias fn_jvaluemut_is_boolean = fn (self: UnsafePointer[JValueMut]) -> c_bool
@@ -50,6 +48,8 @@ alias fn_jvaluemut_as_f64 = fn (self: UnsafePointer[JValueMut]) -> OptionF64Resu
 
 alias fn_jvaluemut_as_str = fn (self: UnsafePointer[JValueMut], default: DiplomatStringView, write: UnsafePointer[DiplomatWrite]) -> None
 
+alias fn_jvaluemut_as_str_ref = fn (self: UnsafePointer[JValueMut], default: DiplomatStringView) -> DiplomatStringView
+
 alias fn_jvaluemut_as_object_mut = fn (self: UnsafePointer[JValueMut]) -> UnsafePointer[JObjectMut]
 
 alias fn_jvaluemut_as_array_mut = fn (self: UnsafePointer[JValueMut]) -> UnsafePointer[JArrayMut]
@@ -65,8 +65,6 @@ struct _DLWrapper:
     var _handle: DLHandle
     
     var _jvaluemut_clone: fn_jvaluemut_clone
-    
-    var _jvaluemut_mark_root: fn_jvaluemut_mark_root
     
     var _jvaluemut_get_type: fn_jvaluemut_get_type
     
@@ -102,6 +100,8 @@ struct _DLWrapper:
     
     var _jvaluemut_as_str: fn_jvaluemut_as_str
     
+    var _jvaluemut_as_str_ref: fn_jvaluemut_as_str_ref
+    
     var _jvaluemut_as_object_mut: fn_jvaluemut_as_object_mut
     
     var _jvaluemut_as_array_mut: fn_jvaluemut_as_array_mut
@@ -110,12 +110,10 @@ struct _DLWrapper:
     
     var _jvaluemut_destroy: fn_jvaluemut_destroy
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
         
         self._jvaluemut_clone = self._handle.get_function[fn_jvaluemut_clone]("JValueMut_clone")
-        
-        self._jvaluemut_mark_root = self._handle.get_function[fn_jvaluemut_mark_root]("JValueMut_mark_root")
         
         self._jvaluemut_get_type = self._handle.get_function[fn_jvaluemut_get_type]("JValueMut_get_type")
         
@@ -151,6 +149,8 @@ struct _DLWrapper:
         
         self._jvaluemut_as_str = self._handle.get_function[fn_jvaluemut_as_str]("JValueMut_as_str")
         
+        self._jvaluemut_as_str_ref = self._handle.get_function[fn_jvaluemut_as_str_ref]("JValueMut_as_str_ref")
+        
         self._jvaluemut_as_object_mut = self._handle.get_function[fn_jvaluemut_as_object_mut]("JValueMut_as_object_mut")
         
         self._jvaluemut_as_array_mut = self._handle.get_function[fn_jvaluemut_as_array_mut]("JValueMut_as_array_mut")
@@ -163,10 +163,6 @@ struct _DLWrapper:
 @always_inline
 fn jvaluemut_clone(self: UnsafePointer[JValueMut]) -> UnsafePointer[JValue]:
     return __wrapper._jvaluemut_clone(self)
-
-@always_inline
-fn jvaluemut_mark_root(self: UnsafePointer[JValueMut]) -> None:
-    return __wrapper._jvaluemut_mark_root(self)
 
 @always_inline
 fn jvaluemut_get_type(self: UnsafePointer[JValueMut]) -> JsonType:
@@ -235,6 +231,10 @@ fn jvaluemut_as_f64(self: UnsafePointer[JValueMut]) -> OptionF64Result:
 @always_inline
 fn jvaluemut_as_str(self: UnsafePointer[JValueMut], default: DiplomatStringView, write: UnsafePointer[DiplomatWrite]) -> None:
     return __wrapper._jvaluemut_as_str(self, default, write)
+
+@always_inline
+fn jvaluemut_as_str_ref(self: UnsafePointer[JValueMut], default: DiplomatStringView) -> DiplomatStringView:
+    return __wrapper._jvaluemut_as_str_ref(self, default)
 
 @always_inline
 fn jvaluemut_as_object_mut(self: UnsafePointer[JValueMut]) -> UnsafePointer[JObjectMut]:

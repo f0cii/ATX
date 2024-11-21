@@ -61,7 +61,7 @@ fn char_ptr_to_string(c: UnsafePointer[UInt8]) -> String:
 struct CString:
     var data: UnsafePointer[c_schar]
 
-    fn __init__(inout self, data: UnsafePointer[c_char]):
+    fn __init__(out self, data: UnsafePointer[c_char]):
         self.data = data.bitcast[c_schar]()
 
     fn __str__(self) -> String:

@@ -29,7 +29,7 @@ struct GateWebsocketError:
     var code: Int
     var message: String
 
-    fn __init__(inout self, code: Int, message: String):
+    fn __init__(out self, code: Int, message: String):
         self.code = code
         self.message = message
 
@@ -243,7 +243,7 @@ struct ApiRequest:
 struct WebSocketResponse:
     var body: String
 
-    fn __init__(inout self, body: String):
+    fn __init__(out self, body: String):
         self.body = body
 
         # TODO: 1
@@ -278,7 +278,7 @@ struct Connection:
     var channels: Dict[String, WSCallback]
     var ws: UnsafePointer[WebSocket]
 
-    fn __init__(inout self, cfg: Configuration):
+    fn __init__(out self, cfg: Configuration):
         self.cfg = cfg
         self.channels = Dict[String, WSCallback]()
         self.ws = UnsafePointer[WebSocket].alloc(1)
@@ -289,10 +289,10 @@ struct Connection:
         # )
         # self.main_loop = None
 
-    fn register(inout self, channel: String, owned callback: WSCallback):
+    fn register(out self, channel: String, owned callback: WSCallback):
         self.channels[channel] = callback
 
-    fn unregister(inout self, channel: String):
+    fn unregister(out self, channel: String):
         try:
             _ = self.channels.pop(channel)
         except:
@@ -430,7 +430,7 @@ struct BaseChannel:
     var conn: UnsafePointer[Connection]
     var cfg: Configuration
 
-    fn __init__(inout self, name: String, conn: Connection):  # , callback=None
+    fn __init__(out self, name: String, conn: Connection):  # , callback=None
         self.name = name
         self.require_auth = False
         self.conn = UnsafePointer[Connection].address_of(conn)

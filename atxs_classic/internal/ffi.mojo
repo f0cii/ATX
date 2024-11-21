@@ -18,7 +18,7 @@ struct DL_Fn[name: String, T: AnyTrivialRegType]:
     var call: T
 
     @always_inline("nodebug")
-    fn __init__(inout self, _handle: DLHandle):
+    fn __init__(out self, _handle: DLHandle):
         self.call = _handle.get_function[T](name)
 
 
@@ -195,10 +195,10 @@ struct _DLWrapper:
 
     var _seq_nanoid: DL_Fn["seq_nanoid", fn (result: c_char_ptr) -> c_size_t]
 
-    # fn __init__(inout self):
+    # fn __init__(out self):
     #     __mlir_op.`lit.ownership.mark_initialized`(__get_mvalue_as_litref(self))
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
 
         self._seq_voidptr_to_int = self._handle

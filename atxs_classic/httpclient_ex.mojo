@@ -4,10 +4,10 @@ from .internal.photon import *
 struct TlsContext:
     var ctx: c_void_ptr
 
-    fn __init__(inout self) -> None:
+    fn __init__(out self) -> None:
         self.ctx = photon_net_tls_context_new()
 
-    fn __moveinit__(inout self, owned other: TlsContext) -> None:
+    fn __moveinit__(out self, owned other: TlsContext) -> None:
         # print("TlsContext.__moveinit__")
         self.ctx = other.ctx
 
@@ -21,12 +21,12 @@ struct HttpClientEx:
     var _client: c_void_ptr
 
     @always_inline
-    fn __init__(inout self):
+    fn __init__(out self):
         self._ctx = TlsContext()
         self._client = photon_net_http_client_new(self._ctx.ctx)
 
     @always_inline
-    fn __moveinit__(inout self, owned other: HttpClientEx) -> None:
+    fn __moveinit__(out self, owned other: HttpClientEx) -> None:
         # print("HttpClient.__moveinit__")
         self._ctx = other._ctx^
         self._client = other._client
@@ -68,7 +68,7 @@ struct HttpClientOperation[origin: MutableOrigin]:
         ref [origin]client: HttpClientEx,
         verb: Verb,
         url: String,
-        buf_size: Int = 1024,
+        buf_size: Int = 16 * 1024,
     ):
         self._op = photon_net_http_client_new_operation(
             client._client,

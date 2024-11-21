@@ -265,7 +265,7 @@ struct _DLWrapper:
         "seq_simdjson_dom_array_iter_step", fn (it: c_void_ptr) -> None
     ]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
 
         self._seq_simdjson_dom_parser_new = self._handle
@@ -649,7 +649,7 @@ struct DomElement:
     var p: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, p: c_void_ptr):
+    fn __init__(out self, p: c_void_ptr):
         self.p = p
 
     @always_inline
@@ -785,7 +785,7 @@ struct DomObject(CollectionElement):
     var p: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, p: c_void_ptr):
+    fn __init__(out self, p: c_void_ptr):
         self.p = p
 
     @always_inline
@@ -852,7 +852,7 @@ struct DomArray:
     var p: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, p: c_void_ptr):
+    fn __init__(out self, p: c_void_ptr):
         self.p = p
 
     @always_inline
@@ -923,7 +923,7 @@ struct DomArrayIter:
     var end: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, arr: c_void_ptr):
+    fn __init__(out self, arr: c_void_ptr):
         self.arr = arr
         self.it = seq_simdjson_dom_array_begin(arr)
         self.end = seq_simdjson_dom_array_end(arr)
@@ -982,7 +982,7 @@ struct DomParser:
     var p: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, max_capacity: Int):
+    fn __init__(out self, max_capacity: Int):
         self.p = seq_simdjson_dom_parser_new(max_capacity)
 
     @always_inline

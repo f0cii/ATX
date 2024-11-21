@@ -34,7 +34,7 @@ struct BybitClient:
         var base_url = "https://api-testnet.bybit.com" if self.testnet else "https://api.bybit.com"
         self.client = HttpClient(base_url, tlsv13_client)
 
-    fn __moveinit__(inout self, owned existing: Self):
+    fn __moveinit__(out self, owned existing: Self):
         logd("BybitClient.__moveinit__")
         self.testnet = existing.testnet
         self.access_key = existing.access_key
@@ -43,7 +43,7 @@ struct BybitClient:
         self.client = existing.client^
         logd("BybitClient.__moveinit__ done")
 
-    fn set_verbose(inout self, verbose: Bool):
+    fn set_verbose(out self, verbose: Bool):
         self.client.set_verbose(verbose)
 
     fn fetch_public_time(self) raises -> ServerTime:

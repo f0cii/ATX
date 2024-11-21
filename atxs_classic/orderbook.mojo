@@ -16,7 +16,7 @@ struct OrderBookLite:
     var asks: List[OrderBookLevel]
     var bids: List[OrderBookLevel]
 
-    fn __init__(inout self, symbol: String = ""):
+    fn __init__(out self, symbol: String = ""):
         self.symbol = symbol
         self.asks = List[OrderBookLevel]()
         self.bids = List[OrderBookLevel]()
@@ -28,7 +28,7 @@ struct Orderbook:
     var _asks: UnsafePointer[c_void_ptr]
     var _bids: UnsafePointer[c_void_ptr]
 
-    fn __init__(inout self, symbol: String):
+    fn __init__(out self, symbol: String):
         self.symbol = symbol
         self._asks = UnsafePointer[c_void_ptr].alloc(1)
         self._bids = UnsafePointer[c_void_ptr].alloc(1)

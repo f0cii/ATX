@@ -58,7 +58,7 @@ struct OrderInfo(Stringable, CollectionElement):
     var good_till_date: Int  # goodTillDate
     var update_time: Int  # updateTime
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.order_id = 0
         self.symbol = ""
         self.status = ""

@@ -175,7 +175,7 @@ struct OrderBook(Stringable):
 #     var created_time: String  # "1682125794703"
 #     var updated_time: String  # "updatedTime"
 
-#     fn __init__(inout self):
+#     fn __init__(out self):
 #         self.position_idx = 0
 #         self.symbol = ""
 #         self.side = ""
@@ -272,7 +272,7 @@ struct OrderResponse(Stringable, CollectionElement):
     var order_id: String
     var order_link_id: String
 
-    fn __init__(inout self, order_id: String, order_link_id: String):
+    fn __init__(out self, order_id: String, order_link_id: String):
         self.order_id = order_id
         self.order_link_id = order_link_id
 
@@ -372,7 +372,7 @@ struct OrderInfo(Stringable, CollectionElement):
     var reduce_only: Bool  # reduceOnly
     var order_link_id: String  # orderLinkId
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.position_idx = 0
         self.order_id = ""
         self.symbol = ""

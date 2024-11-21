@@ -5,7 +5,7 @@ from testing import assert_equal
 struct A:
     var data: UnsafePointer[Int]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.data = UnsafePointer[Int].alloc(1)
         self.data.init_pointee_copy(1)
 

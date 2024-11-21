@@ -35,7 +35,7 @@ struct _DLWrapper:
         "seq_fixed_round", fn (a: Int64, decimalPlaces: Int) -> Int64
     ]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
         self._seq_fixed12_new_string = self._handle
         self._seq_fixed12_to_string = self._handle

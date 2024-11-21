@@ -321,7 +321,7 @@ struct _DLWrapper:
         "seq_simdjson_ondemand_array_iter_free", fn (it: c_void_ptr) -> None
     ]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
 
         self._seq_simdjson_ondemand_parser_new = self._handle
@@ -787,7 +787,7 @@ struct OndemandValue:
     var p: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, p: c_void_ptr):
+    fn __init__(out self, p: c_void_ptr):
         self.p = p
 
     @always_inline
@@ -801,7 +801,7 @@ struct OndemandValue:
         return int(seq_simdjson_ondemand_int_v(self.p))
 
     @always_inline
-    fn __copyinit__(inout self, existing: Self):
+    fn __copyinit__(out self, existing: Self):
         self.p = existing.p
 
     @always_inline
@@ -918,7 +918,7 @@ struct OndemandArray(Sized):
     var p: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, p: c_void_ptr):
+    fn __init__(out self, p: c_void_ptr):
         self.p = p
 
     @always_inline
@@ -983,7 +983,7 @@ struct OndemandObject:
     var p: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, p: c_void_ptr):
+    fn __init__(out self, p: c_void_ptr):
         self.p = p
 
     @always_inline
@@ -1070,7 +1070,7 @@ struct OndemandArrayIter:
         self.end = end
 
     @always_inline
-    fn __init__(inout self, arr: c_void_ptr):
+    fn __init__(out self, arr: c_void_ptr):
         self.arr = arr
         self.it = seq_simdjson_ondemand_array_begin(arr)
         self.end = seq_simdjson_ondemand_array_end(arr)
@@ -1221,7 +1221,7 @@ struct OndemandParser:
     var parser: c_void_ptr
 
     @always_inline
-    fn __init__(inout self, max_capacity: Int):
+    fn __init__(out self, max_capacity: Int):
         self.parser = seq_simdjson_ondemand_parser_new(max_capacity)
 
     @always_inline

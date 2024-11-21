@@ -85,7 +85,7 @@ struct BybitWS:
         self._is_subscribed = False
         self._verbose = False
 
-    fn __moveinit__(inout self, owned existing: Self):
+    fn __moveinit__(out self, owned existing: Self):
         print("BybitWS.__moveinit__")
         self._ptr = existing._ptr
         self._id = existing._id
@@ -102,7 +102,7 @@ struct BybitWS:
     fn __del__(owned self):
         logd("BybitWS.__del__")
 
-    # fn __copyinit__(inout self, existing: Self):
+    # fn __copyinit__(out self, existing: Self):
     #     logd("BybitWS.__copyinit__")
     #     self._ptr = existing._ptr
     #     self._id = existing._id
@@ -121,7 +121,7 @@ struct BybitWS:
     #         + self._subscription_topics_str
     #     )
 
-    # fn __moveinit__(inout self, owned existing: Self):
+    # fn __moveinit__(out self, owned existing: Self):
     #     logd("BybitWS.__moveinit__")
     #     self._ptr = existing._ptr
     #     self._id = existing._id
@@ -140,7 +140,7 @@ struct BybitWS:
     #         + self._subscription_topics_str
     #     )
 
-    fn set_verbose(inout self, verbose: Bool):
+    fn set_verbose(out self, verbose: Bool):
         self._verbose = verbose
 
     fn is_subscribed(self) -> Bool:
@@ -161,7 +161,7 @@ struct BybitWS:
         var id = self.get_id()
         set_on_message(id, callback^)
 
-    fn set_subscription(inout self, topics: List[String]) raises:
+    fn set_subscription(out self, topics: List[String]) raises:
         for topic in topics:
             logd("topic: " + topic[])
             self._subscription_topics.append(topic[])
@@ -268,7 +268,7 @@ struct BybitWS:
         # logd("send: " + body_str)
         self.send(body_str)
 
-    fn on_message(inout self, s: String) -> None:
+    fn on_message(out self, s: String) -> None:
         # logd("BybitWS::on_message: " + s)
         if self._verbose:
             logd("BybitWS::on_message: " + s)

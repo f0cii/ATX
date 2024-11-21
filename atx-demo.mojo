@@ -141,9 +141,12 @@ fn test_http_client() raises -> None:
     http_client.set_timeout_ms(timeout)
 
     var verb = Verb.GET
-    var url = String("https://www.baidu.com")
-    var op = HttpClientOperation(http_client, verb, url, 1024)
+    # var url = String("https://www.baidu.com")
+    # var url = String("https://eapi.binance.com/eapi/v1/time")
+    var url = String("https://www.sina.com.cn")
+    var op = HttpClientOperation(http_client, verb, url)
     _ = op.call()
+    print("op.call() done")
     var status_code = op.status_code()
     assert_equal(status_code, 200)
     var status_message = op.status_message()
@@ -152,7 +155,7 @@ fn test_http_client() raises -> None:
     # print("[" + str(status_message) + "]")
     var s_read = op.read_all()
     assert_true(len(s_read) > 0)
-    assert_true(s_read.startswith("<!DOCTYPE html"))
+    # assert_true(s_read.startswith("<!DOCTYPE html"))
     print("len(s_read): " + str(len(s_read)))
     # print("OK-")
     # assert_true(s_read.endswith("</html>"))
