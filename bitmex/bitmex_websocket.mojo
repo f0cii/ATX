@@ -89,7 +89,7 @@ struct BitMEXWebsocket:
             self.__wait_for_account()
         # self.logger.info("Got all market data. Starting.")
 
-    fn exit(inout self):
+    fn exit(out self):
         """Call this to exit - will close websocket."""
         self.exited = True
         self.ws[].close()
@@ -163,7 +163,7 @@ struct BitMEXWebsocket:
     # End Public Methods
     #
 
-    fn __connect(inout self, ws_url: String, symbol: String) raises:
+    fn __connect(out self, ws_url: String, symbol: String) raises:
         """Connect to the websocket in a thread."""
         # self.logger.debug("Starting thread")
 

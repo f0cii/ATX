@@ -38,7 +38,7 @@ struct PhotonOptions:
     var use_pooled_stack_allocator: c_bool
     var bypass_threadpool: c_bool
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.libaio_queue_depth = 32
         self.use_pooled_stack_allocator = True
         self.bypass_threadpool = True
@@ -238,7 +238,7 @@ struct _DLWrapper:
     var _photon_new_string: fn_photon_new_string
     var _photon_free_string: fn_photon_free_string
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
 
         self._photon_set_log_output_level = self._handle.get_function[

@@ -31,7 +31,7 @@ struct PositionInfo(Stringable, CollectionElement):
     var created_time: String  # "1682125794703"
     var updated_time: String  # "updatedTime"
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.position_idx = 0
         self.symbol = ""
         self.side = ""
@@ -136,7 +136,7 @@ struct OrderBookLite:
     var asks: List[OrderBookLevel]
     var bids: List[OrderBookLevel]
 
-    fn __init__(inout self, symbol: String = ""):
+    fn __init__(out self, symbol: String = ""):
         self.symbol = symbol
         self.asks = List[OrderBookLevel]()
         self.bids = List[OrderBookLevel]()

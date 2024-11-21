@@ -17,7 +17,7 @@ struct LocaleData:
 struct Locale:
     var data: UnsafePointer[LocaleData]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.data = UnsafePointer[LocaleData].alloc(NUM_LOCALE_CATEGORIES)
     
 

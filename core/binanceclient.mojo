@@ -30,7 +30,7 @@ struct BinanceClient:
         var base_url = "https://testnet.binancefuture.com" if self.testnet else "https://fapi.binance.com"
         self.client = HttpClient(base_url, tlsv13_client)
 
-    fn __moveinit__(inout self, owned existing: Self):
+    fn __moveinit__(out self, owned existing: Self):
         logd("BybitClient.__moveinit__")
         self.testnet = existing.testnet
         self.access_key = existing.access_key
@@ -39,7 +39,7 @@ struct BinanceClient:
         self.client = existing.client^
         logd("BybitClient.__moveinit__ done")
 
-    fn set_verbose(inout self, verbose: Bool):
+    fn set_verbose(out self, verbose: Bool):
         self.client.set_verbose(verbose)
 
     fn public_time(self) raises -> Int:

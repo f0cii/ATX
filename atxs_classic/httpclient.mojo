@@ -26,10 +26,10 @@ alias tlsv13_client = 19
 struct QueryParams:
     var data: Dict[String, String]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self.data = Dict[String, String]()
 
-    fn __setitem__(inout self, name: String, value: String):
+    fn __setitem__(out self, name: String, value: String):
         self.data[name] = value
 
     fn to_string(self) raises -> String:
@@ -43,7 +43,7 @@ struct QueryParams:
             url += item[].key + "=" + item[].value + "&"
         return url[1:-1]
 
-    fn debug(inout self) raises:
+    fn debug(out self) raises:
         for item in self.data.items():
             logi(
                 # str(i)
@@ -59,7 +59,7 @@ struct HttpResponse:
     var status_code: Int
     var text: String
 
-    fn __init__(inout self, status_code: Int, text: String):
+    fn __init__(out self, status_code: Int, text: String):
         self.status_code = status_code
         self.text = text
 
@@ -70,7 +70,7 @@ struct HttpClient:
     var ptr: c_void_ptr
     var _verbose: Bool
 
-    fn __init__(inout self, base_url: String, method: Int = tlsv12_client):
+    fn __init__(out self, base_url: String, method: Int = tlsv12_client):
         logd("HttpClient.__init__")
         self._base_url = base_url
         self._method = method
@@ -82,7 +82,7 @@ struct HttpClient:
         self._verbose = False
         logd("HttpClient.__init__ done")
 
-    fn __moveinit__(inout self, owned existing: Self):
+    fn __moveinit__(out self, owned existing: Self):
         logd("HttpClient.__moveinit__")
         self._base_url = existing._base_url
         self._method = existing._method
@@ -103,7 +103,7 @@ struct HttpClient:
             self.ptr = NULL
         logd("HttpClient.__del__ done")
 
-    fn set_verbose(inout self, verbose: Bool):
+    fn set_verbose(out self, verbose: Bool):
         self._verbose = verbose
 
     fn delete(

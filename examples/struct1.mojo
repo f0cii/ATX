@@ -2,7 +2,7 @@ struct MyStruct1:
     var a: Int
     var b: Int
 
-    fn __init__(inout self, a: Int, b: Int):
+    fn __init__(out self, a: Int, b: Int):
         self.a = a
         self.b = b
 
@@ -10,7 +10,7 @@ struct MyStruct1:
 struct MyStruct2[is_mutable: Bool, origin: Origin[is_mutable].type]:
     var m_ptr: Pointer[MyStruct1, origin=origin]
 
-    fn __init__(inout self, m_ptr: Pointer[MyStruct1, origin=origin]):
+    fn __init__(out self, m_ptr: Pointer[MyStruct1, origin=origin]):
         self.m_ptr = m_ptr
 
     fn print_a(self):
@@ -20,7 +20,7 @@ struct MyStruct2[is_mutable: Bool, origin: Origin[is_mutable].type]:
 struct MyStruct3[origin: MutableOrigin]:
     var m_ptr: Pointer[MyStruct1, origin=origin]
 
-    fn __init__(inout self, m_ptr: Pointer[MyStruct1, origin=origin]):
+    fn __init__(out self, m_ptr: Pointer[MyStruct1, origin=origin]):
         self.m_ptr = m_ptr
 
     fn incr_a(self):

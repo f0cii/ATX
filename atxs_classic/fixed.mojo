@@ -18,20 +18,20 @@ struct Fixed(Stringable):
 
     var _value: Int64
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._value = 0
 
-    fn __init__(inout self, v: Int):
+    fn __init__(out self, v: Int):
         self._value = FIXED_SCALE_I * v
 
-    fn __init__(inout self, v: Float64):
+    fn __init__(out self, v: Float64):
         self._value = Int64(int(v * FIXED_SCALE_F))
 
-    fn __init__(inout self, v: String):
+    fn __init__(out self, v: String):
         var v_ = seq_fixed12_new_string(v.unsafe_cstr_ptr(), len(v))
         self._value = v_
 
-    fn copy_from(inout self, other: Self):
+    fn copy_from(out self, other: Self):
         self._value = other._value
 
     @staticmethod
@@ -111,7 +111,7 @@ struct Fixed(Stringable):
         return Self {_value: self._value + other._value}
 
     # Customizing +=
-    fn __iadd__(inout self, other: Self):
+    fn __iadd__(out self, other: Self):
         self._value += other._value
 
     # Customizing subtraction
@@ -119,7 +119,7 @@ struct Fixed(Stringable):
         return Self {_value: self._value - other._value}
 
     # Customizing -=
-    fn __isub__(inout self, other: Self):
+    fn __isub__(out self, other: Self):
         self._value -= other._value
 
     # Customizing multiplication
@@ -128,7 +128,7 @@ struct Fixed(Stringable):
         return Self {_value: v}
 
     # Customizing *=
-    fn __imul__(inout self, other: Self):
+    fn __imul__(out self, other: Self):
         self._value = seq_fixed_mul(self._value, other._value)
 
     # Customizing division
@@ -137,7 +137,7 @@ struct Fixed(Stringable):
         return Self {_value: v}
 
     # Customizing /=
-    fn __itruediv__(inout self, other: Self):
+    fn __itruediv__(out self, other: Self):
         self._value = seq_fixed_truediv(self._value, other._value)
 
     fn __str__(self) -> String:

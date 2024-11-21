@@ -22,7 +22,7 @@ struct _DLWrapper:
         "seq_free_string_in_cache", fn (key: Int64) -> Bool
     ]
 
-    fn __init__(inout self):
+    fn __init__(out self):
         self._handle = DLHandle(LIBNAME)
 
         self._seq_get_next_cache_key = self._handle

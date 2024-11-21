@@ -1,7 +1,7 @@
 struct A:
     var val: Int
 
-    fn __init__(inout self, val: Int):
+    fn __init__(out self, val: Int):
         self.val = val
 
 
@@ -18,7 +18,7 @@ def change_value[origin: MutableOrigin](borrowed p: Pointer[A, origin=origin]):
 def print_value_v0(p: A):
     print(p.val) 
 
-def change_value_v0(inout p: A): # Gives error ofc as a_instance is not in scope. What should go inside origin_of?
+def change_value_v0(outp: A): # Gives error ofc as a_instance is not in scope. What should go inside origin_of?
     p = 15
 
 
