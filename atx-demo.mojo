@@ -68,7 +68,7 @@ fn test_photon_http_client() raises -> None:
     var url = String("https://www.baidu.com")
     # var url = String("https://eapi.binance.com/eapi/v1/time")
     var op = photon_net_http_client_new_operation(
-        http_client, verb._value, url.unsafe_cstr_ptr(), len(url), 1024
+        http_client, verb._value, url.unsafe_cstr_ptr(), len(url), 16 * 1024
     )
     assert_true(op != c_nullptr)
 
